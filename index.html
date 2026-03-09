@@ -586,7 +586,7 @@
 
   <div class="header">
     <div class="header-left">
-      <span class="header-greek">ΔΣΘ</span>
+      <span class="header-greek" style="font-size:13px;letter-spacing:1px">Lumberton Alumnae Chapter</span>
       <div class="header-divider"></div>
       <span class="header-title">Committee Reports</span>
     </div>
@@ -617,8 +617,9 @@
       <span class="stat-label">Announcements<br>Only</span>
     </div>
     <div style="display:flex;align-items:center;gap:12px;margin-left:auto;flex-wrap:wrap">
+      <select id="year-selector" style="padding:7px 12px;border:1px solid var(--gray-light);background:white;font-family:'DM Sans',sans-serif;font-size:13px;color:var(--gray-dark);cursor:pointer;border-radius:2px"></select>
       <select id="month-selector" style="padding:7px 12px;border:1px solid var(--gray-light);background:white;font-family:'DM Sans',sans-serif;font-size:13px;color:var(--gray-dark);cursor:pointer;border-radius:2px"></select>
-      <button onclick="loadReports(document.getElementById('month-selector').value)" style="padding:7px 16px;background:var(--crimson);color:white;border:none;font-family:'DM Sans',sans-serif;font-size:13px;font-weight:600;cursor:pointer;border-radius:2px">Refresh</button>
+      <button onclick="loadReports(document.getElementById('month-selector').value, document.getElementById('year-selector').value)" style="padding:7px 16px;background:var(--crimson);color:white;border:none;font-family:'DM Sans',sans-serif;font-size:13px;font-weight:600;cursor:pointer;border-radius:2px">Refresh</button>
     </div>
     <div class="filter-tabs">
       <button class="filter-tab active" onclick="filterCards('all', this)">All</button>
@@ -688,17 +689,78 @@
   // ── DATES ─────────────────────────────────────────────────────────────────────
   function getNextTuesday() {
     const today = new Date();
-    const day   = today.getDay();
-    const diff  = (2 - day + 7) % 7 || 7;
-    const next  = new Date(today);
-    next.setDate(today.getDate() + diff);
-    return next.toLocaleDateString('en-US', { weekday: 'long', month: 'long', day: 'numeric', year: 'numeric' });
+    today.setHours(0, 0, 0, 0);
+
+    // Find the Tuesday before the 3rd Saturday of the current or next month
+    function ebMeetingForMonth(year, month) {
+      // Find 3rd Saturday of the month
+      let satCount = 0;
+      let thirdSat = null;
+      const d = new Date(year, month, 1);
+      while (d.getMonth() === month) {
+        if (d.getDay() === 6) { // Saturday
+          satCount++;
+          if (satCount === 3) { thirdSat = new Date(d); break; }
+        }
+        d.setDate(d.getDate() + 1);
+      }
+      // Tuesday before the 3rd Saturday (go back to find nearest Tuesday)
+      const eb = new Date(thirdSat);
+      while (eb.getDay() !== 2) { // 2 = Tuesday
+        eb.setDate(eb.getDate() - 1);
+      }
+      return eb;
+    }
+
+    // Check this month first, then next month
+    let eb = ebMeetingForMonth(today.getFullYear(), today.getMonth());
+    if (eb < today) {
+      const nextMonth = today.getMonth() === 11 ? 0 : today.getMonth() + 1;
+      const nextYear  = today.getMonth() === 11 ? today.getFullYear() + 1 : today.getFullYear();
+      eb = ebMeetingForMonth(nextYear, nextMonth);
+    }
+
+    return eb.toLocaleDateString('en-US', { weekday: 'long', month: 'long', day: 'numeric', year: 'numeric' });
   }
 
   function currentMonth() {
     const months = ['January','February','March','April','May','June',
                     'July','August','September','October','November','December'];
     return months[new Date().getMonth()];
+  }
+
+  // ── PROGRAM YEAR ──────────────────────────────────────────────────────────────
+  // Program year runs Sep–Jun. Sep/Oct/Nov/Dec belong to the year that starts,
+  // Jan–Jun belong to the year that ends. e.g. Sep 2025–Jun 2026 = "2025-2026"
+  function currentProgramYear() {
+    const now   = new Date();
+    const month = now.getMonth(); // 0=Jan
+    const year  = now.getFullYear();
+    if (month >= 8) return `${year}-${year + 1}`;   // Sep–Dec
+    return `${year - 1}-${year}`;                    // Jan–Jun
+  }
+
+  function programYearForMonth(month, programYear) {
+    // Returns the calendar year a given month falls in for the given program year
+    const [startYear, endYear] = programYear.split('-').map(Number);
+    const fallMonths = ['September','October','November','December'];
+    return fallMonths.includes(month) ? startYear : endYear;
+  }
+
+  function buildYearSelector() {
+    const sel     = document.getElementById('year-selector');
+    if (!sel) return;
+    const curYear = currentProgramYear();
+    // Show current and previous two program years
+    const [sy, ey] = curYear.split('-').map(Number);
+    const years = [
+      `${sy}-${ey}`,
+      `${sy-1}-${ey-1}`,
+      `${sy-2}-${ey-2}`
+    ];
+    sel.innerHTML = years.map(y =>
+      `<option value="${y}" ${y === curYear ? 'selected' : ''}>${y}</option>`
+    ).join('');
   }
 
   // ── MONTH SELECTOR ────────────────────────────────────────────────────────────
@@ -711,20 +773,24 @@
     sel.innerHTML = months.map(m =>
       `<option value="${m}" ${m === cur ? 'selected' : ''}>${m}</option>`
     ).join('');
-    sel.addEventListener('change', () => loadReports(sel.value));
+    sel.addEventListener('change', () => {
+      const year = document.getElementById('year-selector').value;
+      loadReports(sel.value, year);
+    });
   }
 
   // ── LOAD REPORTS FROM APPS SCRIPT ────────────────────────────────────────────
-  async function loadReports(month) {
+  async function loadReports(month, programYear) {
     showLoading(true);
+    const calYear = programYearForMonth(month, programYear || currentProgramYear());
     try {
-      const url      = `${SCRIPT_URL}?action=getReports&month=${encodeURIComponent(month)}`;
+      const url      = `${SCRIPT_URL}?action=getReports&month=${encodeURIComponent(month)}&year=${calYear}`;
       const response = await fetch(url);
       const json     = await response.json();
 
       if (json.success) {
         allReports = json.reports.map(normalizeReport);
-        renderDashboard(allReports);
+        renderDashboard(allReports, month, programYear);
       } else {
         showError('Could not load reports. Please refresh the page.');
       }
@@ -991,9 +1057,11 @@
   // ── INIT ──────────────────────────────────────────────────────────────────────
   function initDashboard() {
     document.getElementById('meeting-date-badge').textContent = 'EB Meeting: ' + getNextTuesday();
+    buildYearSelector();
     buildMonthSelector();
     const month = document.getElementById('month-selector')?.value || currentMonth();
-    loadReports(month);
+    const year  = document.getElementById('year-selector')?.value  || currentProgramYear();
+    loadReports(month, year);
   }
 </script>
 </body>
