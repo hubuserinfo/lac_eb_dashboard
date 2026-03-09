@@ -1,0 +1,1355 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>LAC Committee Report | Lumberton Alumnae Chapter</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=DM+Sans:wght@300;400;500;600&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --crimson: #8B0000;
+    --crimson-hover: #a50000;
+    --crimson-pale: #fdf2f2;
+    --crimson-border: #e8c0c0;
+    --gold: #C9A84C;
+    --gold-light: #fdf3d8;
+    --ink: #111111;
+    --ink-mid: #444444;
+    --ink-light: #777777;
+    --rule: #e5e0da;
+    --bg: #F7F4EF;
+    --white: #ffffff;
+    --green: #1b5e20;
+    --green-light: #e8f5e9;
+    --field-bg: #fafaf8;
+    --field-border: #d8d3cc;
+    --field-focus: #8B0000;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background: var(--bg);
+    color: var(--ink);
+    min-height: 100vh;
+    padding-bottom: 80px;
+  }
+
+  /* ── HEADER ── */
+  .form-header {
+    background: var(--crimson);
+    padding: 36px 48px 32px;
+    border-bottom: 4px solid var(--gold);
+    position: relative;
+    overflow: hidden;
+  }
+
+  .form-header::after {
+    content: 'ΔΣΘ';
+    position: absolute;
+    right: 40px;
+    top: 50%;
+    transform: translateY(-50%);
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 100px;
+    color: rgba(255,255,255,0.05);
+    letter-spacing: 10px;
+    user-select: none;
+    pointer-events: none;
+  }
+
+  .header-eyebrow {
+    font-size: 10px;
+    font-weight: 600;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 8px;
+  }
+
+  .header-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 32px;
+    font-weight: 700;
+    color: white;
+    line-height: 1.15;
+    margin-bottom: 8px;
+  }
+
+  .header-sub {
+    font-size: 13px;
+    color: rgba(255,255,255,0.6);
+    font-weight: 300;
+  }
+
+  /* ── DEADLINE BANNER ── */
+  .deadline-bar {
+    background: var(--gold-light);
+    border-bottom: 1px solid var(--gold);
+    padding: 12px 48px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    font-size: 13px;
+    color: #5c4200;
+    font-weight: 500;
+  }
+
+  .deadline-icon { font-size: 16px; }
+
+  .deadline-bar strong { font-weight: 700; }
+
+  /* ── PROGRESS BAR ── */
+  .progress-wrap {
+    background: white;
+    border-bottom: 1px solid var(--rule);
+    padding: 14px 48px;
+    position: sticky;
+    top: 0;
+    z-index: 50;
+  }
+
+  .progress-steps {
+    display: flex;
+    gap: 0;
+    max-width: 720px;
+  }
+
+  .progress-step {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    cursor: pointer;
+    padding: 0 8px 0 0;
+  }
+
+  .step-num {
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    background: var(--rule);
+    color: var(--ink-light);
+    font-size: 11px;
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    transition: all 0.2s;
+  }
+
+  .step-num.active { background: var(--crimson); color: white; }
+  .step-num.done { background: var(--green); color: white; }
+
+  .step-label {
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+    color: var(--ink-light);
+    white-space: nowrap;
+    transition: color 0.2s;
+  }
+
+  .step-label.active { color: var(--crimson); }
+  .step-label.done { color: var(--green); }
+
+  .step-connector {
+    flex: 1;
+    height: 1px;
+    background: var(--rule);
+    margin: 0 8px;
+    max-width: 40px;
+  }
+
+  /* ── MAIN FORM ── */
+  .form-body {
+    max-width: 760px;
+    margin: 0 auto;
+    padding: 40px 24px 0;
+  }
+
+  /* ── SECTIONS ── */
+  .form-section {
+    background: var(--white);
+    border: 1px solid var(--rule);
+    border-top: 3px solid var(--rule);
+    margin-bottom: 20px;
+    padding: 28px 32px 32px;
+    animation: fadeUp 0.4s ease both;
+  }
+
+  .form-section.highlight { border-top-color: var(--crimson); }
+  .form-section.gold-top  { border-top-color: var(--gold); }
+  .form-section.green-top { border-top-color: var(--green); }
+
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(12px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+
+  .section-label {
+    font-size: 9px;
+    font-weight: 700;
+    letter-spacing: 2.5px;
+    text-transform: uppercase;
+    color: var(--crimson);
+    margin-bottom: 4px;
+  }
+
+  .section-label.gold  { color: #7a5c00; }
+  .section-label.green { color: var(--green); }
+  .section-label.gray  { color: var(--ink-light); }
+
+  .section-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 20px;
+    font-weight: 700;
+    color: var(--ink);
+    margin-bottom: 6px;
+    line-height: 1.2;
+  }
+
+  .section-desc {
+    font-size: 12.5px;
+    color: var(--ink-light);
+    font-weight: 300;
+    margin-bottom: 24px;
+    line-height: 1.5;
+    border-bottom: 1px solid var(--rule);
+    padding-bottom: 16px;
+  }
+
+  /* ── FORM GROUPS ── */
+  .form-group {
+    margin-bottom: 20px;
+  }
+
+  .form-group:last-child { margin-bottom: 0; }
+
+  .form-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+  }
+
+  label {
+    display: block;
+    font-size: 12px;
+    font-weight: 600;
+    color: var(--ink-mid);
+    letter-spacing: 0.3px;
+    margin-bottom: 6px;
+  }
+
+  .label-hint {
+    display: block;
+    font-size: 11px;
+    font-weight: 300;
+    color: var(--ink-light);
+    margin-top: 2px;
+    letter-spacing: 0;
+  }
+
+  .required { color: var(--crimson); margin-left: 2px; }
+
+  input[type="text"],
+  input[type="email"],
+  input[type="date"],
+  input[type="url"],
+  input[type="number"],
+  select,
+  textarea {
+    width: 100%;
+    padding: 10px 14px;
+    background: var(--field-bg);
+    border: 1px solid var(--field-border);
+    border-radius: 0;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 14px;
+    color: var(--ink);
+    outline: none;
+    transition: border-color 0.2s, box-shadow 0.2s;
+    -webkit-appearance: none;
+  }
+
+  input:focus, select:focus, textarea:focus {
+    border-color: var(--field-focus);
+    box-shadow: 0 0 0 3px rgba(139,0,0,0.08);
+  }
+
+  textarea {
+    resize: vertical;
+    min-height: 90px;
+    line-height: 1.5;
+  }
+
+  select {
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%23777' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 14px center;
+    padding-right: 36px;
+    cursor: pointer;
+  }
+
+  /* ── REPORT TYPE SELECTOR ── */
+  .report-type-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+    margin-top: 4px;
+  }
+
+  .type-card {
+    border: 2px solid var(--rule);
+    padding: 16px 18px;
+    cursor: pointer;
+    transition: all 0.2s;
+    position: relative;
+  }
+
+  .type-card:hover { border-color: var(--crimson); }
+
+  .type-card.selected { border-color: var(--crimson); background: var(--crimson-pale); }
+
+  .type-card input[type="radio"] {
+    position: absolute;
+    opacity: 0;
+    width: 0;
+    height: 0;
+  }
+
+  .type-card-icon { font-size: 20px; margin-bottom: 6px; }
+
+  .type-card-title {
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--ink);
+    margin-bottom: 3px;
+  }
+
+  .type-card-desc {
+    font-size: 11.5px;
+    color: var(--ink-light);
+    line-height: 1.4;
+    font-weight: 300;
+  }
+
+  .type-card.selected .type-card-title { color: var(--crimson); }
+
+  /* ── DYNAMIC LISTS ── */
+  .dynamic-list { margin-bottom: 12px; }
+
+  .list-item {
+    background: var(--field-bg);
+    border: 1px solid var(--rule);
+    padding: 16px 18px;
+    margin-bottom: 10px;
+    position: relative;
+    animation: fadeUp 0.25s ease both;
+  }
+
+  .list-item-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 12px;
+  }
+
+  .list-item-num {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    font-weight: 500;
+    color: var(--ink-light);
+    letter-spacing: 1px;
+    text-transform: uppercase;
+  }
+
+  .remove-btn {
+    background: none;
+    border: 1px solid var(--rule);
+    color: var(--ink-light);
+    font-family: 'DM Sans', sans-serif;
+    font-size: 11px;
+    padding: 3px 10px;
+    cursor: pointer;
+    transition: all 0.2s;
+  }
+
+  .remove-btn:hover { border-color: var(--crimson); color: var(--crimson); }
+
+  .list-item label {
+    font-size: 11.5px;
+    color: var(--ink-light);
+    margin-bottom: 4px;
+    font-weight: 500;
+  }
+
+  .list-item input,
+  .list-item textarea,
+  .list-item select {
+    margin-bottom: 10px;
+  }
+
+  .list-item input:last-child,
+  .list-item textarea:last-child,
+  .list-item select:last-child {
+    margin-bottom: 0;
+  }
+
+  .add-btn {
+    background: none;
+    border: 1px dashed var(--crimson);
+    color: var(--crimson);
+    font-family: 'DM Sans', sans-serif;
+    font-size: 12px;
+    font-weight: 600;
+    padding: 9px 18px;
+    cursor: pointer;
+    width: 100%;
+    text-align: center;
+    transition: all 0.2s;
+    letter-spacing: 0.5px;
+  }
+
+  .add-btn:hover { background: var(--crimson-pale); }
+
+  /* ── CONDITIONAL SECTIONS ── */
+  .conditional { display: none; }
+  .conditional.visible { display: block; }
+
+  /* ── MEMBER LIST ── */
+  .member-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-top: 8px;
+    min-height: 36px;
+    padding: 8px;
+    background: var(--field-bg);
+    border: 1px solid var(--field-border);
+  }
+
+  .member-tag {
+    background: var(--crimson-pale);
+    border: 1px solid var(--crimson-border);
+    color: var(--crimson);
+    font-size: 12px;
+    font-weight: 500;
+    padding: 4px 10px;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    animation: fadeUp 0.2s ease both;
+  }
+
+  .member-tag-remove {
+    cursor: pointer;
+    color: var(--crimson);
+    font-size: 14px;
+    line-height: 1;
+    opacity: 0.6;
+    transition: opacity 0.15s;
+  }
+
+  .member-tag-remove:hover { opacity: 1; }
+
+  .member-input-row {
+    display: flex;
+    gap: 8px;
+    margin-top: 10px;
+  }
+
+  .member-input-row input { flex: 1; }
+
+  .member-add-btn {
+    background: var(--crimson);
+    color: white;
+    border: none;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 12px;
+    font-weight: 600;
+    padding: 10px 18px;
+    cursor: pointer;
+    transition: background 0.2s;
+    white-space: nowrap;
+  }
+
+  .member-add-btn:hover { background: var(--crimson-hover); }
+
+  /* ── BUDGET FIELDS ── */
+  .budget-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+    margin-bottom: 14px;
+  }
+
+  .currency-wrap { position: relative; }
+
+  .currency-prefix {
+    position: absolute;
+    left: 12px;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 13px;
+    color: var(--ink-light);
+    font-weight: 500;
+    pointer-events: none;
+  }
+
+  .currency-wrap input { padding-left: 26px; }
+
+  /* ── INFO BOX ── */
+  .info-box {
+    background: var(--gold-light);
+    border-left: 3px solid var(--gold);
+    padding: 12px 16px;
+    font-size: 12.5px;
+    color: #5c4200;
+    line-height: 1.5;
+    margin-bottom: 16px;
+  }
+
+  .info-box strong { font-weight: 700; }
+
+  /* ── SUBMIT SECTION ── */
+  .submit-section {
+    background: var(--ink);
+    padding: 32px;
+    margin-bottom: 0;
+    border-top: 3px solid var(--gold);
+  }
+
+  .submit-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 22px;
+    font-weight: 700;
+    color: white;
+    margin-bottom: 6px;
+  }
+
+  .submit-desc {
+    font-size: 12.5px;
+    color: rgba(255,255,255,0.5);
+    font-weight: 300;
+    margin-bottom: 24px;
+    line-height: 1.5;
+  }
+
+  .submit-btn {
+    background: var(--gold);
+    color: var(--ink);
+    border: none;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 13px;
+    font-weight: 700;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    padding: 15px 40px;
+    cursor: pointer;
+    transition: background 0.2s;
+    width: 100%;
+  }
+
+  .submit-btn:hover { background: #dbb95a; }
+
+  /* ── SUCCESS STATE ── */
+  .success-overlay {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.75);
+    z-index: 999;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .success-overlay.visible { display: flex; }
+
+  .success-box {
+    background: white;
+    padding: 48px 52px;
+    max-width: 480px;
+    width: 90%;
+    text-align: center;
+    border-top: 5px solid var(--green);
+    animation: fadeUp 0.3s ease both;
+  }
+
+  .success-icon { font-size: 48px; margin-bottom: 16px; }
+
+  .success-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 28px;
+    font-weight: 700;
+    color: var(--ink);
+    margin-bottom: 10px;
+  }
+
+  .success-body {
+    font-size: 14px;
+    color: var(--ink-mid);
+    line-height: 1.6;
+    font-weight: 300;
+    margin-bottom: 24px;
+  }
+
+  .success-close {
+    background: var(--crimson);
+    color: white;
+    border: none;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 13px;
+    font-weight: 600;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    padding: 12px 32px;
+    cursor: pointer;
+  }
+
+  @media (max-width: 640px) {
+    .form-header { padding: 28px 24px; }
+    .deadline-bar { padding: 12px 24px; }
+    .progress-wrap { padding: 12px 24px; }
+    .form-body { padding: 24px 16px 0; }
+    .form-section { padding: 22px 20px 24px; }
+    .form-row { grid-template-columns: 1fr; }
+    .report-type-grid { grid-template-columns: 1fr; }
+    .budget-row { grid-template-columns: 1fr; }
+    .progress-steps { overflow-x: auto; }
+    .step-label { display: none; }
+  }
+</style>
+</head>
+<body>
+
+<!-- HEADER -->
+<div class="form-header">
+  <div class="header-eyebrow">Lumberton Alumnae Chapter · Delta Sigma Theta Sorority, Inc.</div>
+  <div class="header-title">Monthly Committee Report</div>
+  <div class="header-sub">Submit by Friday at 8:00 PM · Reports feed directly into the EB Dashboard and meeting agendas</div>
+</div>
+
+<!-- DEADLINE BAR -->
+<div class="deadline-bar">
+  <span class="deadline-icon">📅</span>
+  <span><strong>Deadline:</strong> Friday by 8:00 PM · <strong>Reporting cycle:</strong> Committees that met late in the month should select the month their meeting covered below</span>
+</div>
+
+<!-- PROGRESS -->
+<div class="progress-wrap">
+  <div class="progress-steps">
+    <div class="progress-step" onclick="scrollToSection('sec-info')">
+      <div class="step-num active" id="snum-1">1</div>
+      <span class="step-label active" id="slabel-1">Committee Info</span>
+    </div>
+    <div class="step-connector"></div>
+    <div class="progress-step" onclick="scrollToSection('sec-type')">
+      <div class="step-num" id="snum-2">2</div>
+      <span class="step-label" id="slabel-2">Report Type</span>
+    </div>
+    <div class="step-connector"></div>
+    <div class="progress-step" onclick="scrollToSection('sec-activity')">
+      <div class="step-num" id="snum-3">3</div>
+      <span class="step-label" id="slabel-3">Activity</span>
+    </div>
+    <div class="step-connector"></div>
+    <div class="progress-step" onclick="scrollToSection('sec-events')">
+      <div class="step-num" id="snum-4">4</div>
+      <span class="step-label" id="slabel-4">Events &amp; Budget</span>
+    </div>
+    <div class="step-connector"></div>
+    <div class="progress-step" onclick="scrollToSection('sec-support')">
+      <div class="step-num" id="snum-5">5</div>
+      <span class="step-label" id="slabel-5">Final Details</span>
+    </div>
+  </div>
+</div>
+
+<div class="form-body">
+<form id="reportForm" onsubmit="handleSubmit(event); return false;">
+
+  <!-- SECTION 1: COMMITTEE INFO -->
+  <div class="form-section highlight" id="sec-info">
+    <div class="section-label">Section 1</div>
+    <div class="section-title">Committee Information</div>
+    <div class="section-desc">Basic identifying information for this report. This will appear on the EB dashboard and both meeting agendas.</div>
+
+    <div class="form-row">
+      <div class="form-group">
+        <label>Committee Name <span class="required">*</span></label>
+        <select id="committeeName" required onchange="updateProgress()">
+          <option value="">Select committee</option>
+          <optgroup label="Executive Officers &amp; Standing Committees">
+            <option>President</option>
+            <option>1st VP</option>
+            <option>2nd VP</option>
+            <option>Treasurer</option>
+            <option>Financial Secretary</option>
+            <option>Internal Audit</option>
+            <option>Policies and Procedures</option>
+            <option>Nominating</option>
+          </optgroup>
+          <optgroup label="Program & Planning">
+            <option>Educational Development</option>
+            <option>Social Action</option>
+            <option>Membership Services</option>
+            <option>Arts & Letters</option>
+            <option>SPARC</option>
+            <option>Physical and Mental Health</option>
+            <option>International Awareness and Involvement</option>
+            <option>Economic Development</option>
+            <option>Program Planning and Development</option>
+            <option>Journalism</option>
+            <option>Grant Writing</option>
+            <option>Fundraising</option>
+            <option>Technology</option>
+          </optgroup>
+          <optgroup label="Other / Special">
+            <option>Political Awareness and Involvement</option>
+            <option>Adhoc / Special Committee</option>
+          </optgroup>
+        </select>
+      </div>
+      <div class="form-group">
+        <label>Reporting Month <span class="required">*</span>
+          <span class="label-hint">Select the month your committee meeting covered</span>
+        </label>
+        <select id="reportingMonth" required onchange="updateProgress()">
+          <option value="">Select month</option>
+          <option>September</option>
+          <option>October</option>
+          <option>November</option>
+          <option>December</option>
+          <option>January</option>
+          <option>February</option>
+          <option>March</option>
+          <option>April</option>
+          <option>May</option>
+          <option>June</option>
+        </select>
+      </div>
+    </div>
+
+    <div class="form-row">
+      <div class="form-group">
+        <label>Committee Chair Name <span class="required">*</span></label>
+        <input type="text" id="chairName" placeholder="First Last" required>
+      </div>
+      <div class="form-group">
+        <label>Chair Email <span class="required">*</span></label>
+        <input type="email" id="chairEmail" placeholder="email@example.com" required>
+      </div>
+    </div>
+
+    <div class="form-row">
+      <div class="form-group">
+        <label>Co-Chair Name
+          <span class="label-hint">Optional</span>
+        </label>
+        <input type="text" id="coChairName" placeholder="First Last">
+      </div>
+      <div class="form-group">
+        <label>Co-Chair Email
+          <span class="label-hint">Optional</span>
+        </label>
+        <input type="email" id="coChairEmail" placeholder="email@example.com">
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label>Date Committee Met <span class="required">*</span></label>
+      <input type="date" id="meetingDate" required style="max-width:240px">
+    </div>
+
+    <!-- COMMITTEE MEMBERS -->
+    <div class="form-group">
+      <label>Committee Members
+        <span class="label-hint">Add each member's name. Press "Add" or Enter after each name.</span>
+      </label>
+      <div class="member-tags" id="memberTags">
+        <span style="font-size:12px;color:var(--ink-light);align-self:center;font-style:italic">No members added yet</span>
+      </div>
+      <div class="member-input-row">
+        <input type="text" id="memberInput" placeholder="First Last" onkeydown="if(event.key==='Enter'){event.preventDefault();addMember();}">
+        <button type="button" class="member-add-btn" onclick="addMember()">+ Add</button>
+      </div>
+      <input type="hidden" id="memberList" value="">
+    </div>
+  </div>
+
+  <!-- SECTION 2: REPORT TYPE -->
+  <div class="form-section" id="sec-type">
+    <div class="section-label">Section 2</div>
+    <div class="section-title">Report Type</div>
+    <div class="section-desc">This determines how your report appears on the EB dashboard. Action Item reports are shown first and require board attention. Announcement reports are displayed in the announcements section.</div>
+
+    <div class="form-group">
+      <label>What type of report is this? <span class="required">*</span></label>
+      <div class="report-type-grid">
+        <div class="type-card" id="card-action" onclick="selectType('action')">
+          <input type="radio" name="reportType" value="action" id="type-action">
+          <div class="type-card-icon">🔴</div>
+          <div class="type-card-title">Action Items</div>
+          <div class="type-card-desc">Your committee has items that require Executive Board discussion, approval, or a vote.</div>
+        </div>
+        <div class="type-card" id="card-announce" onclick="selectType('announce')">
+          <input type="radio" name="reportType" value="announce" id="type-announce">
+          <div class="type-card-icon">📢</div>
+          <div class="type-card-title">Announcement Only</div>
+          <div class="type-card-desc">Updates and announcements for the board's awareness. No vote or approval needed.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SECTION 3: ACTIVITY -->
+  <div class="form-section" id="sec-activity">
+    <div class="section-label">Section 3</div>
+    <div class="section-title">Committee Activity</div>
+    <div class="section-desc">Summarize what your committee accomplished this reporting period.</div>
+
+    <div class="form-group">
+      <label>Activity Summary <span class="required">*</span>
+        <span class="label-hint">Add one item per line — events held, work completed, partnerships made, milestones reached.</span>
+      </label>
+      <div class="dynamic-list" id="activityList"></div>
+      <button type="button" class="add-btn" onclick="addActivity()">+ Add Activity Item</button>
+      <input type="hidden" id="activitySummary" value="">
+    </div>
+
+    <!-- ACTION ITEMS — only shown if type = action -->
+    <div class="conditional" id="action-items-section">
+      <div class="form-group" style="margin-top:8px">
+        <label>Items Requiring Board Action <span class="required">*</span>
+          <span class="label-hint">List each item that needs EB discussion, approval, or a vote.</span>
+        </label>
+        <div class="dynamic-list" id="actionItemsList"></div>
+        <button type="button" class="add-btn" onclick="addActionItem()">+ Add Action Item</button>
+      </div>
+    </div>
+
+    <div class="form-group" style="margin-top:20px">
+      <label>Previous Action Item Follow-Up
+        <span class="label-hint">Status update on any items the board previously assigned to your committee. Leave blank if none.</span>
+      </label>
+      <textarea id="previousFollowUp" placeholder="Leave blank if no previous action items to report on..." rows="3"></textarea>
+    </div>
+  </div>
+
+  <!-- SECTION 4: EVENTS & BUDGET -->
+  <div class="form-section gold-top" id="sec-events">
+    <div class="section-label gold">Section 4</div>
+    <div class="section-title">Upcoming Events &amp; Budget</div>
+    <div class="section-desc">Events listed here will appear on the agenda and may be displayed on the flyer screen at the chapter meeting.</div>
+
+    <div class="form-group">
+      <label>Do you have upcoming events to report?</label>
+      <select id="hasEvents" onchange="toggleEvents()">
+        <option value="no">No upcoming events</option>
+        <option value="yes">Yes — I have events to add</option>
+      </select>
+    </div>
+
+    <div class="conditional" id="events-section">
+      <div class="dynamic-list" id="eventsList"></div>
+      <button type="button" class="add-btn" onclick="addEvent()">+ Add Event</button>
+    </div>
+
+    <!-- BUDGET -->
+    <div class="form-group" style="margin-top:24px;padding-top:20px;border-top:1px solid var(--rule)">
+      <label>Budget Status</label>
+      <div class="budget-row">
+        <div class="form-group" style="margin-bottom:0">
+          <label>Approved Annual Budget</label>
+          <div class="currency-wrap">
+            <span class="currency-prefix">$</span>
+            <input type="number" id="budgetApproved" placeholder="0.00" step="0.01" min="0">
+          </div>
+        </div>
+        <div class="form-group" style="margin-bottom:0">
+          <label>Available Balance</label>
+          <div class="currency-wrap">
+            <span class="currency-prefix">$</span>
+            <input type="number" id="budgetAvailable" placeholder="0.00" step="0.01" min="0">
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="conditional" id="action-budget-section">
+      <div class="form-group">
+        <label>Are you requesting additional or unbudgeted funds?</label>
+        <select id="hasBudgetRequest" onchange="toggleBudgetRequest()">
+          <option value="no">No budget request</option>
+          <option value="yes">Yes — I have a budget request</option>
+        </select>
+      </div>
+
+      <div class="conditional" id="budget-request-section">
+        <div class="info-box">
+          <strong>Note:</strong> Budget requests for new or unbudgeted initiatives are reviewed at the EB meeting. The board will vote on approval. Annual budgets are submitted separately each October.
+        </div>
+        <div class="form-row">
+          <div class="form-group">
+            <label>Amount Requested</label>
+            <div class="currency-wrap">
+              <span class="currency-prefix">$</span>
+              <input type="number" id="requestAmount" placeholder="0.00" step="0.01" min="0">
+            </div>
+          </div>
+          <div class="form-group">
+            <label>Date Funds Needed By</label>
+            <input type="date" id="requestDate">
+          </div>
+        </div>
+        <div class="form-group">
+          <label>Purpose / Description
+            <span class="label-hint">What is the fund for? Include enough detail for the board to evaluate.</span>
+          </label>
+          <textarea id="requestPurpose" placeholder="Describe the purpose, what will be purchased or paid for, and how it supports the committee's programming..." rows="4"></textarea>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SECTION 5: FINAL DETAILS -->
+  <div class="form-section green-top" id="sec-support">
+    <div class="section-label green">Section 5</div>
+    <div class="section-title">Final Details</div>
+    <div class="section-desc">Flyers, support requests, and any additional information for the board.</div>
+
+    <div class="form-group">
+      <label>Event Flyer
+        <span class="label-hint">Choose how you want to share your flyer. This will appear on the flyer screen at the chapter meeting.</span>
+      </label>
+      <select id="flyerType" onchange="toggleFlyerInput()" style="margin-bottom:10px">
+        <option value="">No flyer to submit</option>
+        <option value="canva">Canva link</option>
+        <option value="drive">Google Drive link</option>
+        <option value="pdf">Upload PDF</option>
+      </select>
+
+      <div class="conditional" id="flyer-canva">
+        <input type="url" id="flyerCanva" placeholder="https://www.canva.com/design/...">
+      </div>
+      <div class="conditional" id="flyer-drive">
+        <input type="url" id="flyerDrive" placeholder="https://drive.google.com/file/...">
+        <span class="label-hint" style="display:block;margin-top:5px">Make sure sharing is set to "Anyone with the link can view"</span>
+      </div>
+      <div class="conditional" id="flyer-pdf">
+        <input type="file" id="flyerPdf" accept=".pdf" style="padding:8px 0;background:none;border:none;border-bottom:1px dashed var(--field-border)">
+        <span class="label-hint" style="display:block;margin-top:5px">PDF uploads will be saved to the chapter's shared Drive folder upon submission.</span>
+      </div>
+    </div>
+
+    <div class="form-group" id="flyer-name-group" style="display:none">
+      <label>Event / Flyer Name
+        <span class="label-hint">What event is this flyer for?</span>
+      </label>
+      <input type="text" id="flyerName" placeholder="e.g. Spring Fundraiser — April 26">
+    </div>
+
+    <div class="conditional" id="action-support-section">
+      <div class="form-group" style="padding-top:20px;border-top:1px solid var(--rule);margin-top:8px">
+        <label>Support Requested from Executive Board
+          <span class="label-hint">What assistance, resources, or guidance does your committee need from the board? Leave blank if none.</span>
+        </label>
+        <textarea id="supportNeeded" placeholder="Leave blank if no support is needed..." rows="3"></textarea>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label>Member Engagement Notes
+        <span class="label-hint">Optional — any member participation concerns or highlights to share with the board.</span>
+      </label>
+      <textarea id="memberEngagement" placeholder="Optional..." rows="3"></textarea>
+    </div>
+
+    <div class="form-group">
+      <label>Member Recognition
+        <span class="label-hint">Optional — any committee members to recognize for outstanding contributions.</span>
+      </label>
+      <input type="text" id="memberRecognition" placeholder="Optional — e.g. First Last for organizing the workshop">
+    </div>
+  </div>
+
+  <!-- SUBMIT -->
+  <div class="form-section submit-section">
+    <div class="submit-title">Ready to Submit?</div>
+    <div class="submit-desc">Your report will be sent directly to the EB dashboard and will inform both the EB and Chapter meeting agendas. Make sure all required fields are complete before submitting.</div>
+    <button type="submit" class="submit-btn">Submit Committee Report</button>
+  </div>
+
+</form>
+</div>
+
+<!-- SUCCESS OVERLAY -->
+<div class="success-overlay" id="successOverlay">
+  <div class="success-box">
+    <div class="success-icon">✅</div>
+    <div class="success-title">Report Submitted</div>
+    <div class="success-body">Your committee report has been received and will appear on the EB dashboard. You should receive a confirmation email shortly.<br><br>The deadline for this cycle is <strong>Friday at 8:00 PM</strong>.</div>
+    <button class="success-close" onclick="closeSuccess()">Done</button>
+  </div>
+</div>
+
+<script>
+  // ── ACTIVITY LIST ──────────────────────────────────────────────────────────
+  let activityCount = 0;
+
+  function addActivity() {
+    activityCount++;
+    const list = document.getElementById('activityList');
+    const div = document.createElement('div');
+    div.className = 'list-item';
+    div.id = 'activity-' + activityCount;
+    div.innerHTML = `
+      <div class="list-item-header">
+        <span class="list-item-num">Item ${activityCount}</span>
+        <button type="button" class="remove-btn" onclick="removeItem('activity-${activityCount}');syncActivity()">Remove</button>
+      </div>
+      <input type="text" class="activity-item-input" placeholder="Describe this activity or accomplishment..." oninput="syncActivity()">
+    `;
+    list.appendChild(div);
+    div.querySelector('input').focus();
+    syncActivity();
+  }
+
+  function syncActivity() {
+    const inputs = document.querySelectorAll('.activity-item-input');
+    const vals = Array.from(inputs).map(i => i.value.trim()).filter(Boolean);
+    document.getElementById('activitySummary').value = vals.join(' | ');
+  }
+
+  // ── FLYER TOGGLE ───────────────────────────────────────────────────────────
+  function toggleFlyerInput() {
+    const type = document.getElementById('flyerType').value;
+    document.getElementById('flyer-canva').classList.toggle('visible', type === 'canva');
+    document.getElementById('flyer-drive').classList.toggle('visible', type === 'drive');
+    document.getElementById('flyer-pdf').classList.toggle('visible', type === 'pdf');
+    document.getElementById('flyer-name-group').style.display = type ? 'block' : 'none';
+  }
+
+  // ── MEMBER TAGS ────────────────────────────────────────────────────────────
+  let members = [];
+
+  function addMember() {
+    const input = document.getElementById('memberInput');
+    const name = input.value.trim();
+    if (!name) return;
+    if (members.includes(name)) { input.value = ''; return; }
+    members.push(name);
+    renderMembers();
+    input.value = '';
+    input.focus();
+  }
+
+  function removeMember(name) {
+    members = members.filter(m => m !== name);
+    renderMembers();
+  }
+
+  function renderMembers() {
+    const container = document.getElementById('memberTags');
+    document.getElementById('memberList').value = members.join(', ');
+    if (members.length === 0) {
+      container.innerHTML = '<span style="font-size:12px;color:var(--ink-light);align-self:center;font-style:italic">No members added yet</span>';
+      return;
+    }
+    container.innerHTML = members.map(m => `
+      <span class="member-tag">
+        ${m}
+        <span class="member-tag-remove" onclick="removeMember('${m.replace(/'/g,"\\'")}')">×</span>
+      </span>
+    `).join('');
+  }
+
+  // ── REPORT TYPE ────────────────────────────────────────────────────────────
+  function selectType(type) {
+    document.getElementById('card-action').classList.toggle('selected', type === 'action');
+    document.getElementById('card-announce').classList.toggle('selected', type === 'announce');
+    document.getElementById('type-' + type).checked = true;
+
+    const isAction = type === 'action';
+    document.getElementById('action-items-section').classList.toggle('visible', isAction);
+    document.getElementById('action-budget-section').classList.toggle('visible', isAction);
+    document.getElementById('action-support-section').classList.toggle('visible', isAction);
+
+    if (isAction && document.getElementById('actionItemsList').children.length === 0) addActionItem();
+    updateProgress();
+  }
+
+  // ── ACTION ITEMS ───────────────────────────────────────────────────────────
+  let actionCount = 0;
+
+  function addActionItem() {
+    actionCount++;
+    const list = document.getElementById('actionItemsList');
+    const div = document.createElement('div');
+    div.className = 'list-item';
+    div.id = 'action-' + actionCount;
+    div.innerHTML = `
+      <div class="list-item-header">
+        <span class="list-item-num">Action Item ${actionCount}</span>
+        <button type="button" class="remove-btn" onclick="removeItem('action-${actionCount}')">Remove</button>
+      </div>
+      <label>Description — what does the board need to approve or discuss?</label>
+      <textarea class="action-desc" placeholder="Describe the item clearly so board members can prepare..." rows="3"></textarea>
+    `;
+    list.appendChild(div);
+  }
+
+  // ── EVENTS ────────────────────────────────────────────────────────────────
+  let eventCount = 0;
+
+  function toggleEvents() {
+    const val = document.getElementById('hasEvents').value;
+    const sec = document.getElementById('events-section');
+    if (val === 'yes') {
+      sec.classList.add('visible');
+      if (document.getElementById('eventsList').children.length === 0) addEvent();
+    } else {
+      sec.classList.remove('visible');
+    }
+  }
+
+  function addEvent() {
+    eventCount++;
+    const list = document.getElementById('eventsList');
+    const div = document.createElement('div');
+    div.className = 'list-item';
+    div.id = 'event-' + eventCount;
+    div.innerHTML = `
+      <div class="list-item-header">
+        <span class="list-item-num">Event ${eventCount}</span>
+        <button type="button" class="remove-btn" onclick="removeItem('event-${eventCount}')">Remove</button>
+      </div>
+      <label>Event Name</label>
+      <input type="text" class="event-name" placeholder="e.g. Financial Literacy Workshop">
+      <label>Date</label>
+      <input type="date" class="event-date">
+      <label>Time</label>
+      <input type="text" class="event-time" placeholder="e.g. 10:00 AM">
+      <label>Location</label>
+      <input type="text" class="event-location" placeholder="e.g. RCC Campus, Room 201 or Virtual">
+      <label>Brief Description (optional)</label>
+      <textarea class="event-desc" placeholder="Optional — one or two sentences about the event..." rows="2"></textarea>
+    `;
+    list.appendChild(div);
+  }
+
+  // ── BUDGET REQUEST ─────────────────────────────────────────────────────────
+  function toggleBudgetRequest() {
+    const val = document.getElementById('hasBudgetRequest').value;
+    document.getElementById('budget-request-section').classList.toggle('visible', val === 'yes');
+  }
+
+  // ── REMOVE ITEM ────────────────────────────────────────────────────────────
+  function removeItem(id) {
+    const el = document.getElementById(id);
+    if (el) el.remove();
+  }
+
+  // ── SCROLL TO SECTION ──────────────────────────────────────────────────────
+  function scrollToSection(id) {
+    document.getElementById(id).scrollIntoView({ behavior: 'smooth', block: 'start' });
+  }
+
+  // ── PROGRESS ───────────────────────────────────────────────────────────────
+  function updateProgress() {
+    const checks = [
+      document.getElementById('committeeName').value && document.getElementById('reportingMonth').value,
+      document.querySelector('input[name="reportType"]:checked'),
+      document.getElementById('activitySummary').value,
+      true, // events/budget always available
+      true  // final details always available
+    ];
+
+    checks.forEach((done, i) => {
+      const num = document.getElementById('snum-' + (i + 1));
+      const label = document.getElementById('slabel-' + (i + 1));
+      if (done) {
+        num.className = 'step-num done';
+        label.className = 'step-label done';
+      } else if (i === checks.findIndex(c => !c)) {
+        num.className = 'step-num active';
+        label.className = 'step-label active';
+      }
+    });
+  }
+
+  document.getElementById('activitySummary').addEventListener('input', updateProgress);
+
+  // ── COLLECT ALL FORM DATA ─────────────────────────────────────────────────
+  function collectFormData() {
+    // Activity items
+    const activityInputs = document.querySelectorAll('.activity-item-input');
+    const activitySummary = Array.from(activityInputs)
+      .map(i => i.value.trim()).filter(Boolean).join(' | ');
+
+    // Action items
+    const actionDescs = document.querySelectorAll('.action-desc');
+    const actionItems = Array.from(actionDescs)
+      .map(i => i.value.trim()).filter(Boolean).join(' | ');
+
+    // Events (up to 3)
+    const eventItems = document.querySelectorAll('#eventsList .list-item');
+    const events = Array.from(eventItems).slice(0, 3).map(item => ({
+      name:     item.querySelector('.event-name')?.value?.trim()     || '',
+      date:     item.querySelector('.event-date')?.value?.trim()     || '',
+      time:     item.querySelector('.event-time')?.value?.trim()     || '',
+      location: item.querySelector('.event-location')?.value?.trim() || '',
+      desc:     item.querySelector('.event-desc')?.value?.trim()     || '',
+    })).filter(ev => ev.name);
+
+    // Flyer
+    const flyerType = document.getElementById('flyerType').value;
+    let flyerLink = '';
+    if (flyerType === 'canva') flyerLink = document.getElementById('flyerCanva').value.trim();
+    if (flyerType === 'drive') flyerLink = document.getElementById('flyerDrive').value.trim();
+
+    return {
+      committeeName:    document.getElementById('committeeName').value,
+      reportingMonth:   document.getElementById('reportingMonth').value,
+      chairName:        document.getElementById('chairName').value.trim(),
+      chairEmail:       document.getElementById('chairEmail').value.trim(),
+      coChairName:      document.getElementById('coChairName').value.trim(),
+      coChairEmail:     document.getElementById('coChairEmail').value.trim(),
+      meetingDate:      document.getElementById('meetingDate').value,
+      memberList:       document.getElementById('memberList').value,
+      reportType:       document.querySelector('input[name="reportType"]:checked')?.value || '',
+      activitySummary,
+      actionItems,
+      previousFollowUp: document.getElementById('previousFollowUp').value.trim(),
+      events,
+      budgetApproved:   document.getElementById('budgetApproved').value,
+      budgetAvailable:  document.getElementById('budgetAvailable').value,
+      hasBudgetRequest: document.getElementById('hasBudgetRequest')?.value || 'no',
+      requestAmount:    document.getElementById('requestAmount')?.value    || '',
+      requestDate:      document.getElementById('requestDate')?.value      || '',
+      requestPurpose:   document.getElementById('requestPurpose')?.value?.trim() || '',
+      flyerType,
+      flyerLink,
+      flyerName:        document.getElementById('flyerName').value.trim(),
+      supportNeeded:    document.getElementById('supportNeeded')?.value?.trim()     || '',
+      memberEngagement: document.getElementById('memberEngagement').value.trim(),
+      memberRecognition:document.getElementById('memberRecognition').value.trim(),
+    };
+  }
+
+  // ── PDF TO BASE64 ─────────────────────────────────────────────────────────
+  function readFileAsBase64(file) {
+    return new Promise((resolve, reject) => {
+      const reader = new FileReader();
+      reader.onload = () => resolve(reader.result.split(',')[1]);
+      reader.onerror = reject;
+      reader.readAsDataURL(file);
+    });
+  }
+
+  // ── SUBMIT ─────────────────────────────────────────────────────────────────
+  // Replace YOUR_APPS_SCRIPT_URL with your deployed Web App URL
+  const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbybnNwY2koaqiNrLO3xI80LSBTOsRdf9ep1DPHt71EyLIUurt3nGZrcD_gUQ4WbtK0H/exec';
+
+  async function handleSubmit(e) {
+    e.preventDefault();
+
+    // Validate activity
+    if (!document.getElementById('activitySummary').value) {
+      alert('Please add at least one activity item in Section 3.');
+      scrollToSection('sec-activity');
+      return;
+    }
+
+    // Validate report type
+    if (!document.querySelector('input[name="reportType"]:checked')) {
+      alert('Please select a report type in Section 2.');
+      scrollToSection('sec-type');
+      return;
+    }
+
+    const submitBtn = document.querySelector('.submit-btn');
+    submitBtn.textContent = 'Submitting…';
+    submitBtn.disabled = true;
+
+    try {
+      const formData = collectFormData();
+
+      // Handle PDF upload — convert to base64
+      const pdfFile = document.getElementById('flyerPdf')?.files?.[0];
+      if (formData.flyerType === 'pdf' && pdfFile) {
+        formData.flyerBase64 = await readFileAsBase64(pdfFile);
+        formData.flyerFileName = pdfFile.name;
+      }
+
+      const response = await fetch(SCRIPT_URL, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(formData),
+      });
+
+      const result = await response.json();
+
+      if (result.success) {
+        document.getElementById('successOverlay').classList.add('visible');
+        document.querySelectorAll('.step-num').forEach(el => { el.className = 'step-num done'; });
+        document.querySelectorAll('.step-label').forEach(el => { el.className = 'step-label done'; });
+      } else {
+        throw new Error(result.message || 'Submission failed');
+      }
+
+    } catch (err) {
+      alert('There was a problem submitting your report. Please try again or contact the Technology Committee.\n\nError: ' + err.message);
+    } finally {
+      submitBtn.textContent = 'Submit Committee Report';
+      submitBtn.disabled = false;
+    }
+  }
+
+  function closeSuccess() {
+    document.getElementById('successOverlay').classList.remove('visible');
+    document.getElementById('reportForm').reset();
+    members = [];
+    renderMembers();
+    document.getElementById('card-action').classList.remove('selected');
+    document.getElementById('card-announce').classList.remove('selected');
+    document.getElementById('action-items-section').classList.remove('visible');
+    document.getElementById('action-budget-section').classList.remove('visible');
+    document.getElementById('action-support-section').classList.remove('visible');
+    document.getElementById('events-section').classList.remove('visible');
+    document.getElementById('budget-request-section').classList.remove('visible');
+    document.getElementById('activityList').innerHTML = '';
+    activityCount = 0;
+    syncActivity();
+    document.getElementById('actionItemsList').innerHTML = '';
+    document.getElementById('eventsList').innerHTML = '';
+    actionCount = 0;
+    eventCount = 0;
+    document.querySelectorAll('.step-num').forEach((el, i) => {
+      el.className = i === 0 ? 'step-num active' : 'step-num';
+    });
+    document.querySelectorAll('.step-label').forEach((el, i) => {
+      el.className = i === 0 ? 'step-label active' : 'step-label';
+    });
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+
+  // Seed one activity item on load
+  addActivity();
+
+  // Set default reporting month to current
+  const months = ['September','October','November','December','January','February','March','April','May','June'];
+  const now = new Date();
+  const monthName = now.toLocaleString('default', { month: 'long' });
+  const sel = document.getElementById('reportingMonth');
+  for (let opt of sel.options) {
+    if (opt.value === monthName) { opt.selected = true; break; }
+  }
+</script>
+</body>
+</html>
