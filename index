@@ -1,0 +1,1000 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>LAC Executive Board | Committee Reports</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --crimson: #8B0000;
+    --crimson-light: #A50000;
+    --crimson-pale: #f9f0f0;
+    --cream: #FDFAF6;
+    --white: #ffffff;
+    --gold: #C9A84C;
+    --gold-light: #f5e9cb;
+    --gray-dark: #1a1a1a;
+    --gray-mid: #5a5a5a;
+    --gray-light: #e8e4e0;
+    --gray-bg: #f4f1ed;
+    --action-bg: #fff8f8;
+    --announce-bg: #f8faf8;
+    --green: #2e7d32;
+    --green-light: #e8f5e9;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background: var(--cream);
+    color: var(--gray-dark);
+    min-height: 100vh;
+  }
+
+  /* ===== LOGIN SCREEN ===== */
+  #login-screen {
+    position: fixed;
+    inset: 0;
+    background: var(--crimson);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+    flex-direction: column;
+  }
+
+  .login-box {
+    background: white;
+    padding: 48px 56px;
+    width: 420px;
+    max-width: 90vw;
+    border-top: 6px solid var(--gold);
+  }
+
+  .login-logo {
+    text-align: center;
+    margin-bottom: 32px;
+  }
+
+  .login-logo .greek {
+    font-family: 'Playfair Display', serif;
+    font-size: 42px;
+    color: var(--crimson);
+    letter-spacing: 8px;
+    line-height: 1;
+    display: block;
+  }
+
+  .login-logo .chapter {
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: var(--gray-mid);
+    margin-top: 8px;
+    display: block;
+  }
+
+  .login-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 20px;
+    color: var(--gray-dark);
+    text-align: center;
+    margin-bottom: 28px;
+  }
+
+  .login-input {
+    width: 100%;
+    padding: 14px 16px;
+    border: 2px solid var(--gray-light);
+    font-family: 'DM Sans', sans-serif;
+    font-size: 15px;
+    color: var(--gray-dark);
+    outline: none;
+    transition: border-color 0.2s;
+    margin-bottom: 12px;
+  }
+
+  .login-input:focus { border-color: var(--crimson); }
+
+  .login-btn {
+    width: 100%;
+    padding: 14px;
+    background: var(--crimson);
+    color: white;
+    border: none;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 14px;
+    font-weight: 600;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: background 0.2s;
+    margin-top: 4px;
+  }
+
+  .login-btn:hover { background: var(--crimson-light); }
+
+  .login-error {
+    color: var(--crimson);
+    font-size: 13px;
+    text-align: center;
+    margin-top: 10px;
+    min-height: 18px;
+    font-weight: 500;
+  }
+
+  /* ===== MAIN DASHBOARD ===== */
+  #dashboard { display: none; }
+
+  /* Header */
+  .header {
+    background: var(--crimson);
+    color: white;
+    padding: 0 40px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 72px;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    border-bottom: 3px solid var(--gold);
+  }
+
+  .header-left {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+  }
+
+  .header-greek {
+    font-family: 'Playfair Display', serif;
+    font-size: 26px;
+    letter-spacing: 6px;
+    color: white;
+  }
+
+  .header-divider {
+    width: 1px;
+    height: 32px;
+    background: rgba(255,255,255,0.3);
+  }
+
+  .header-title {
+    font-size: 13px;
+    font-weight: 500;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.85);
+  }
+
+  .header-right {
+    display: flex;
+    align-items: center;
+    gap: 24px;
+  }
+
+  .meeting-badge {
+    background: rgba(255,255,255,0.12);
+    border: 1px solid rgba(255,255,255,0.25);
+    padding: 6px 16px;
+    font-size: 12px;
+    letter-spacing: 1px;
+    color: rgba(255,255,255,0.9);
+  }
+
+  .logout-btn {
+    background: none;
+    border: none;
+    color: rgba(255,255,255,0.6);
+    font-family: 'DM Sans', sans-serif;
+    font-size: 12px;
+    cursor: pointer;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    transition: color 0.2s;
+  }
+  .logout-btn:hover { color: white; }
+
+  /* Summary bar */
+  .summary-bar {
+    background: white;
+    border-bottom: 1px solid var(--gray-light);
+    padding: 16px 40px;
+    display: flex;
+    align-items: center;
+    gap: 32px;
+  }
+
+  .summary-stat {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+
+  .stat-num {
+    font-family: 'Playfair Display', serif;
+    font-size: 28px;
+    color: var(--crimson);
+    line-height: 1;
+  }
+
+  .stat-label {
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    color: var(--gray-mid);
+    line-height: 1.3;
+  }
+
+  .summary-divider {
+    width: 1px;
+    height: 36px;
+    background: var(--gray-light);
+  }
+
+  .filter-tabs {
+    margin-left: auto;
+    display: flex;
+    gap: 4px;
+  }
+
+  .filter-tab {
+    padding: 8px 20px;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    border: 2px solid var(--gray-light);
+    background: none;
+    cursor: pointer;
+    color: var(--gray-mid);
+    transition: all 0.2s;
+  }
+
+  .filter-tab.active {
+    background: var(--crimson);
+    border-color: var(--crimson);
+    color: white;
+  }
+
+  /* Main content */
+  .main {
+    padding: 32px 40px 60px;
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+
+  /* Section headers */
+  .section-header {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    margin-bottom: 20px;
+    margin-top: 36px;
+  }
+
+  .section-header:first-child { margin-top: 0; }
+
+  .section-label {
+    font-family: 'Playfair Display', serif;
+    font-size: 18px;
+    color: var(--gray-dark);
+  }
+
+  .section-pill {
+    padding: 3px 12px;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    border-radius: 20px;
+  }
+
+  .pill-action {
+    background: var(--crimson);
+    color: white;
+  }
+
+  .pill-announce {
+    background: var(--green-light);
+    color: var(--green);
+  }
+
+  .section-line {
+    flex: 1;
+    height: 1px;
+    background: var(--gray-light);
+  }
+
+  /* Report cards */
+  .cards-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(520px, 1fr));
+    gap: 20px;
+  }
+
+  .report-card {
+    background: white;
+    border: 1px solid var(--gray-light);
+    border-left: 4px solid var(--crimson);
+    transition: box-shadow 0.2s, transform 0.2s;
+    overflow: hidden;
+  }
+
+  .report-card:hover {
+    box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+    transform: translateY(-1px);
+  }
+
+  .report-card.announce {
+    border-left-color: var(--green);
+  }
+
+  .card-header {
+    padding: 18px 22px 14px;
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    border-bottom: 1px solid var(--gray-bg);
+    cursor: pointer;
+    user-select: none;
+  }
+
+  .card-header-left {}
+
+  .card-committee {
+    font-family: 'Playfair Display', serif;
+    font-size: 16px;
+    color: var(--gray-dark);
+    margin-bottom: 3px;
+  }
+
+  .card-meta {
+    font-size: 12px;
+    color: var(--gray-mid);
+    font-weight: 400;
+  }
+
+  .card-toggle {
+    color: var(--gray-mid);
+    font-size: 18px;
+    transition: transform 0.25s;
+    margin-left: 12px;
+    flex-shrink: 0;
+    margin-top: 2px;
+  }
+
+  .card-toggle.open { transform: rotate(180deg); }
+
+  .card-badges {
+    display: flex;
+    gap: 6px;
+    flex-wrap: wrap;
+    padding: 10px 22px;
+    background: var(--gray-bg);
+    border-bottom: 1px solid var(--gray-light);
+  }
+
+  .badge {
+    padding: 3px 10px;
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 0.8px;
+    text-transform: uppercase;
+    border-radius: 3px;
+  }
+
+  .badge-action { background: #ffe5e5; color: var(--crimson); }
+  .badge-budget { background: var(--gold-light); color: #7a5c00; }
+  .badge-event { background: #e3f2fd; color: #1565c0; }
+  .badge-announce { background: var(--green-light); color: var(--green); }
+
+  .card-body {
+    padding: 0 22px;
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.35s ease, padding 0.2s ease;
+  }
+
+  .card-body.open {
+    max-height: 800px;
+    padding: 18px 22px 20px;
+  }
+
+  .card-section {
+    margin-bottom: 16px;
+  }
+
+  .card-section:last-child { margin-bottom: 0; }
+
+  .card-section-title {
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    color: var(--gray-mid);
+    margin-bottom: 6px;
+    padding-bottom: 4px;
+    border-bottom: 1px solid var(--gray-bg);
+  }
+
+  .card-section-content {
+    font-size: 14px;
+    color: var(--gray-dark);
+    line-height: 1.6;
+    font-weight: 300;
+  }
+
+  .action-items-list {
+    list-style: none;
+    padding: 0;
+  }
+
+  .action-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    padding: 8px 0;
+    border-bottom: 1px solid var(--gray-bg);
+    font-size: 14px;
+    line-height: 1.5;
+  }
+
+  .action-item:last-child { border-bottom: none; }
+
+  .action-dot {
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    background: var(--crimson);
+    flex-shrink: 0;
+    margin-top: 6px;
+  }
+
+  .action-dot.green { background: var(--green); }
+
+  .budget-row {
+    display: flex;
+    gap: 20px;
+    flex-wrap: wrap;
+  }
+
+  .budget-item {
+    flex: 1;
+    min-width: 120px;
+    background: var(--gray-bg);
+    padding: 10px 14px;
+  }
+
+  .budget-item-label {
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    color: var(--gray-mid);
+    margin-bottom: 4px;
+  }
+
+  .budget-item-value {
+    font-family: 'Playfair Display', serif;
+    font-size: 18px;
+    color: var(--gray-dark);
+  }
+
+  .budget-request {
+    margin-top: 8px;
+    padding: 10px 14px;
+    background: var(--gold-light);
+    border-left: 3px solid var(--gold);
+    font-size: 13px;
+    color: var(--gray-dark);
+  }
+
+  .budget-request strong {
+    display: block;
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    color: #7a5c00;
+    margin-bottom: 3px;
+  }
+
+  /* Decision tracker */
+  .decision-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 10px 14px;
+    background: var(--crimson-pale);
+    border-left: 3px solid var(--crimson);
+    margin-top: 14px;
+  }
+
+  .decision-label {
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    color: var(--crimson);
+  }
+
+  .decision-select {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 12px;
+    font-weight: 600;
+    padding: 5px 10px;
+    border: 2px solid var(--crimson);
+    background: white;
+    color: var(--crimson);
+    cursor: pointer;
+    outline: none;
+  }
+
+  /* Empty state */
+  .empty-state {
+    text-align: center;
+    padding: 48px;
+    color: var(--gray-mid);
+    font-size: 14px;
+    background: white;
+    border: 1px dashed var(--gray-light);
+  }
+
+  /* No results */
+  .no-results {
+    grid-column: 1/-1;
+    text-align: center;
+    padding: 60px;
+    color: var(--gray-mid);
+  }
+
+  @media (max-width: 768px) {
+    .header { padding: 0 20px; }
+    .summary-bar { padding: 14px 20px; flex-wrap: wrap; gap: 16px; }
+    .main { padding: 20px 16px 40px; }
+    .cards-grid { grid-template-columns: 1fr; }
+    .filter-tabs { margin-left: 0; }
+    .header-title { display: none; }
+  }
+</style>
+</head>
+<body>
+
+<!-- LOGIN SCREEN -->
+<div id="login-screen">
+  <div class="login-box">
+    <div class="login-logo">
+      <span class="greek">ΔΣΘ</span>
+      <span class="chapter">Lumberton Alumnae Chapter</span>
+    </div>
+    <div class="login-title">Executive Board Portal</div>
+    <input type="password" id="pw-input" class="login-input" placeholder="Enter password" onkeydown="if(event.key==='Enter') tryLogin()">
+    <button class="login-btn" onclick="tryLogin()">Access Reports</button>
+    <div class="login-error" id="login-error"></div>
+  </div>
+</div>
+
+<!-- DASHBOARD -->
+<div id="dashboard">
+
+  <div class="header">
+    <div class="header-left">
+      <span class="header-greek">ΔΣΘ</span>
+      <div class="header-divider"></div>
+      <span class="header-title">Committee Reports</span>
+    </div>
+    <div class="header-right">
+      <div class="meeting-badge" id="meeting-date-badge">Loading date...</div>
+      <button class="logout-btn" onclick="logout()">Sign Out</button>
+    </div>
+  </div>
+
+  <div class="summary-bar">
+    <div class="summary-stat">
+      <span class="stat-num" id="total-count">0</span>
+      <span class="stat-label">Reports<br>Submitted</span>
+    </div>
+    <div class="summary-divider"></div>
+    <div class="summary-stat">
+      <span class="stat-num" id="action-count" style="color:var(--crimson)">0</span>
+      <span class="stat-label">Require<br>Board Action</span>
+    </div>
+    <div class="summary-divider"></div>
+    <div class="summary-stat">
+      <span class="stat-num" id="budget-count" style="color:#7a5c00">0</span>
+      <span class="stat-label">Budget<br>Requests</span>
+    </div>
+    <div class="summary-divider"></div>
+    <div class="summary-stat">
+      <span class="stat-num" id="announce-count" style="color:var(--green)">0</span>
+      <span class="stat-label">Announcements<br>Only</span>
+    </div>
+    <div style="display:flex;align-items:center;gap:12px;margin-left:auto;flex-wrap:wrap">
+      <select id="month-selector" style="padding:7px 12px;border:1px solid var(--gray-light);background:white;font-family:'DM Sans',sans-serif;font-size:13px;color:var(--gray-dark);cursor:pointer;border-radius:2px"></select>
+      <button onclick="loadReports(document.getElementById('month-selector').value)" style="padding:7px 16px;background:var(--crimson);color:white;border:none;font-family:'DM Sans',sans-serif;font-size:13px;font-weight:600;cursor:pointer;border-radius:2px">Refresh</button>
+    </div>
+    <div class="filter-tabs">
+      <button class="filter-tab active" onclick="filterCards('all', this)">All</button>
+      <button class="filter-tab" onclick="filterCards('action', this)">Action Items</button>
+      <button class="filter-tab" onclick="filterCards('announce', this)">Announcements</button>
+    </div>
+  </div>
+
+  <div class="main">
+    <style>@keyframes spin { to { transform: rotate(360deg); } }</style>
+    <div id="loading-state" style="display:none;justify-content:center;align-items:center;padding:80px;flex-direction:column;gap:16px">
+      <div style="width:36px;height:36px;border:3px solid var(--gray-light);border-top-color:var(--crimson);border-radius:50%;animation:spin 0.8s linear infinite"></div>
+      <div style="font-size:13px;color:var(--gray-mid)">Loading reports...</div>
+    </div>
+
+    <!-- ACTION ITEMS SECTION -->
+    <div id="action-section">
+      <div class="section-header">
+        <span class="section-label">Requiring Board Action</span>
+        <span class="section-pill pill-action" id="action-pill">0</span>
+        <div class="section-line"></div>
+      </div>
+      <div class="cards-grid" id="action-cards"></div>
+    </div>
+
+    <!-- ANNOUNCEMENTS SECTION -->
+    <div id="announce-section">
+      <div class="section-header">
+        <span class="section-label">Announcements</span>
+        <span class="section-pill pill-announce" id="announce-pill">0</span>
+        <div class="section-line"></div>
+      </div>
+      <div class="cards-grid" id="announce-cards"></div>
+    </div>
+
+  </div>
+</div>
+
+<script>
+  const PASSWORD    = "LAC2025EB";
+  const SCRIPT_URL  = 'https://script.google.com/macros/s/AKfycbxS4tyZsciDyxeFWI8fD-3mOGWVFL3I3866UFehf_z05iEilXxfBZwDJ1XPygPLxP8W/exec';
+
+  // Current loaded reports
+  let allReports = [];
+
+  // ── AUTH ──────────────────────────────────────────────────────────────────────
+  function tryLogin() {
+    const val = document.getElementById('pw-input').value;
+    if (val === PASSWORD) {
+      document.getElementById('login-screen').style.display = 'none';
+      document.getElementById('dashboard').style.display = 'block';
+      initDashboard();
+    } else {
+      const err = document.getElementById('login-error');
+      err.textContent = 'Incorrect password. Please try again.';
+      document.getElementById('pw-input').value = '';
+      setTimeout(() => err.textContent = '', 3000);
+    }
+  }
+
+  function logout() {
+    document.getElementById('login-screen').style.display = 'flex';
+    document.getElementById('dashboard').style.display = 'none';
+    document.getElementById('pw-input').value = '';
+  }
+
+  // ── DATES ─────────────────────────────────────────────────────────────────────
+  function getNextTuesday() {
+    const today = new Date();
+    const day   = today.getDay();
+    const diff  = (2 - day + 7) % 7 || 7;
+    const next  = new Date(today);
+    next.setDate(today.getDate() + diff);
+    return next.toLocaleDateString('en-US', { weekday: 'long', month: 'long', day: 'numeric', year: 'numeric' });
+  }
+
+  function currentMonth() {
+    const months = ['January','February','March','April','May','June',
+                    'July','August','September','October','November','December'];
+    return months[new Date().getMonth()];
+  }
+
+  // ── MONTH SELECTOR ────────────────────────────────────────────────────────────
+  function buildMonthSelector() {
+    const months = ['September','October','November','December',
+                    'January','February','March','April','May','June'];
+    const cur    = currentMonth();
+    const sel    = document.getElementById('month-selector');
+    if (!sel) return;
+    sel.innerHTML = months.map(m =>
+      `<option value="${m}" ${m === cur ? 'selected' : ''}>${m}</option>`
+    ).join('');
+    sel.addEventListener('change', () => loadReports(sel.value));
+  }
+
+  // ── LOAD REPORTS FROM APPS SCRIPT ────────────────────────────────────────────
+  async function loadReports(month) {
+    showLoading(true);
+    try {
+      const url      = `${SCRIPT_URL}?action=getReports&month=${encodeURIComponent(month)}`;
+      const response = await fetch(url);
+      const json     = await response.json();
+
+      if (json.success) {
+        allReports = json.reports.map(normalizeReport);
+        renderDashboard(allReports);
+      } else {
+        showError('Could not load reports. Please refresh the page.');
+      }
+    } catch (err) {
+      showError('Connection error. Check your internet connection and try again.');
+      console.error(err);
+    } finally {
+      showLoading(false);
+    }
+  }
+
+  // ── NORMALIZE — map Apps Script fields to dashboard card format ───────────────
+  function normalizeReport(r) {
+    const isAction      = r.reportType === 'action';
+    const hasBudgetReq  = r.budgetRequest === 'Yes' && r.requestAmount;
+    const hasEvents     = r.events && r.events.length > 0;
+
+    const badges = [];
+    if (isAction)     badges.push('action');
+    else              badges.push('announce');
+    if (hasBudgetReq) badges.push('budget');
+    if (hasEvents)    badges.push('event');
+
+    const activityItems = (r.activitySummary || '')
+      .split(' | ').filter(Boolean);
+
+    const actionItems = isAction
+      ? (r.actionItems || '').split(' | ').filter(Boolean)
+      : [];
+
+    const upcomingEvents = (r.events || []).map(ev => {
+      let str = ev.name;
+      if (ev.date)     str += ` — ${ev.date}`;
+      if (ev.time)     str += ` @ ${ev.time}`;
+      if (ev.location) str += `, ${ev.location}`;
+      return str;
+    });
+
+    const ts = r.timestamp ? new Date(r.timestamp).toLocaleDateString('en-US', {
+      weekday: 'long', month: 'long', day: 'numeric', year: 'numeric'
+    }) : '';
+
+    return {
+      submissionId:  r.submissionId,
+      committee:     r.committee,
+      chair:         r.chairName,
+      submitted:     ts,
+      reportingMonth:r.reportingMonth,
+      type:          isAction ? 'action' : 'announce',
+      badges,
+      summary:       activityItems.join(' · '),
+      activityItems,
+      actionItems,
+      previousFollowUp: r.previousFollowUp || '',
+      budget: (r.budgetApproved || r.budgetAvailable) ? {
+        approved:  r.budgetApproved  ? '$' + Number(r.budgetApproved).toLocaleString()  : '—',
+        available: r.budgetAvailable ? '$' + Number(r.budgetAvailable).toLocaleString() : '—',
+      } : null,
+      budgetRequest: hasBudgetReq ? {
+        amount:  '$' + Number(r.requestAmount).toLocaleString(),
+        purpose: r.requestPurpose || ''
+      } : null,
+      upcomingEvents,
+      support:       r.ebSupport     || '',
+      engagement:    r.memberEngagement || '',
+      recognition:   r.memberRecognition || '',
+      ebDecision:    r.ebDecision    || 'Pending',
+      flyerLink:     r.flyerLink     || '',
+      flyerName:     r.flyerName     || '',
+    };
+  }
+
+  // ── RENDER DASHBOARD ─────────────────────────────────────────────────────────
+  function renderDashboard(reports) {
+    document.getElementById('meeting-date-badge').textContent = 'EB Meeting: ' + getNextTuesday();
+
+    const actionReports   = reports.filter(r => r.type === 'action');
+    const announceReports = reports.filter(r => r.type === 'announce');
+    const budgetReports   = reports.filter(r => r.budgetRequest);
+
+    document.getElementById('total-count').textContent    = reports.length;
+    document.getElementById('action-count').textContent   = actionReports.length;
+    document.getElementById('budget-count').textContent   = budgetReports.length;
+    document.getElementById('announce-count').textContent = announceReports.length;
+    document.getElementById('action-pill').textContent    = actionReports.length;
+    document.getElementById('announce-pill').textContent  = announceReports.length;
+
+    renderCards(actionReports,   'action-cards');
+    renderCards(announceReports, 'announce-cards');
+  }
+
+  function renderCards(data, containerId) {
+    const container = document.getElementById(containerId);
+    if (data.length === 0) {
+      container.innerHTML = '<div class="empty-state">No reports in this category.</div>';
+      return;
+    }
+    container.innerHTML = data.map((r, i) => buildCard(r, containerId + '-' + i)).join('');
+  }
+
+  function buildCard(r, id) {
+    const badgeHTML = r.badges.map(b => {
+      const labels = { action: 'Action Required', budget: 'Budget Request', event: 'Upcoming Events', announce: 'Announcement Only' };
+      const cls    = { action: 'badge-action',    budget: 'badge-budget',   event: 'badge-event',    announce: 'badge-announce' };
+      return `<span class="badge ${cls[b]}">${labels[b]}</span>`;
+    }).join('');
+
+    // Activity list
+    const activityHTML = r.activityItems.length > 0 ? `
+      <div class="card-section">
+        <div class="card-section-title">Activity Summary</div>
+        <ul class="action-items-list">
+          ${r.activityItems.map(a => `<li class="action-item"><span class="action-dot" style="background:#555"></span><span>${a}</span></li>`).join('')}
+        </ul>
+      </div>` : '';
+
+    // Action items + decision dropdown
+    const currentDecision = r.ebDecision && r.ebDecision !== 'Pending' ? r.ebDecision : '';
+    const actionItemsHTML = r.actionItems.length > 0 ? `
+      <div class="card-section">
+        <div class="card-section-title">Action Items</div>
+        <ul class="action-items-list">
+          ${r.actionItems.map(a => `<li class="action-item"><span class="action-dot"></span><span>${a}</span></li>`).join('')}
+        </ul>
+        <div class="decision-row">
+          <span class="decision-label">Board Decision</span>
+          <select class="decision-select" onchange="saveDecision('${r.submissionId}', this.value, this)">
+            <option value="">— Pending —</option>
+            <option ${currentDecision==='Approved'?'selected':''}>Approved</option>
+            <option ${currentDecision==='Failed'?'selected':''}>Failed</option>
+            <option ${currentDecision==='Tabled'?'selected':''}>Tabled</option>
+            <option ${currentDecision==='Withdrawn'?'selected':''}>Withdrawn</option>
+            <option ${currentDecision==='Discussion Only'?'selected':''}>Discussion Only</option>
+          </select>
+        </div>
+      </div>` : '';
+
+    // Previous follow-up
+    const followUpHTML = r.previousFollowUp ? `
+      <div class="card-section">
+        <div class="card-section-title">Previous Action Item Follow-Up</div>
+        <div class="card-section-content">${r.previousFollowUp}</div>
+      </div>` : '';
+
+    // Budget
+    const budgetHTML = r.budget ? `
+      <div class="card-section">
+        <div class="card-section-title">Budget Status</div>
+        <div class="budget-row">
+          <div class="budget-item">
+            <div class="budget-item-label">Approved</div>
+            <div class="budget-item-value">${r.budget.approved}</div>
+          </div>
+          <div class="budget-item">
+            <div class="budget-item-label">Available</div>
+            <div class="budget-item-value">${r.budget.available}</div>
+          </div>
+        </div>
+        ${r.budgetRequest ? `<div class="budget-request"><strong>Budget Request: </strong>${r.budgetRequest.amount} — ${r.budgetRequest.purpose}</div>` : ''}
+      </div>` : '';
+
+    // Events
+    const eventsHTML = r.upcomingEvents && r.upcomingEvents.length > 0 ? `
+      <div class="card-section">
+        <div class="card-section-title">Upcoming Events</div>
+        <ul class="action-items-list">
+          ${r.upcomingEvents.map(e => `<li class="action-item"><span class="action-dot" style="background:#1565c0"></span><span>${e}</span></li>`).join('')}
+        </ul>
+      </div>` : '';
+
+    // Support
+    const supportHTML = r.support ? `
+      <div class="card-section">
+        <div class="card-section-title">Support Requested from Board</div>
+        <div class="card-section-content">${r.support}</div>
+      </div>` : '';
+
+    // Recognition
+    const recognitionHTML = r.recognition ? `
+      <div class="card-section">
+        <div class="card-section-title">Member Recognition</div>
+        <div class="card-section-content">${r.recognition}</div>
+      </div>` : '';
+
+    const monthTag = r.reportingMonth && r.reportingMonth !== document.getElementById('month-selector')?.value
+      ? `<span class="badge" style="background:#e8f0fe;color:#1a56db;border-color:#c3d3f7">${r.reportingMonth}</span>`
+      : '';
+
+    return `
+    <div class="report-card ${r.type === 'announce' ? 'announce' : ''}" data-type="${r.type}">
+      <div class="card-header" onclick="toggleCard('${id}')">
+        <div class="card-header-left">
+          <div class="card-committee">${r.committee}</div>
+          <div class="card-meta">Chair: ${r.chair} &nbsp;·&nbsp; Submitted: ${r.submitted}</div>
+        </div>
+        <span class="card-toggle" id="toggle-${id}">▾</span>
+      </div>
+      <div class="card-badges">${badgeHTML}${monthTag}</div>
+      <div class="card-body" id="body-${id}">
+        ${activityHTML}
+        ${actionItemsHTML}
+        ${followUpHTML}
+        ${budgetHTML}
+        ${eventsHTML}
+        ${supportHTML}
+        ${recognitionHTML}
+      </div>
+    </div>`;
+  }
+
+  // ── SAVE DECISION BACK TO SHEET ───────────────────────────────────────────────
+  async function saveDecision(submissionId, decision, selectEl) {
+    if (!decision) return;
+    selectEl.disabled = true;
+    try {
+      const encoded = new URLSearchParams({
+        data: JSON.stringify({ action: 'saveDecision', submissionId, decision })
+      });
+      await fetch(SCRIPT_URL, {
+        method: 'POST',
+        mode: 'no-cors',
+        headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+        body: encoded.toString(),
+      });
+      selectEl.style.borderColor = '#2e7d32';
+      selectEl.style.color = '#2e7d32';
+    } catch (err) {
+      console.error('Decision save error:', err);
+    } finally {
+      selectEl.disabled = false;
+    }
+  }
+
+  // ── LOADING / ERROR STATES ────────────────────────────────────────────────────
+  function showLoading(show) {
+    const el = document.getElementById('loading-state');
+    if (el) el.style.display = show ? 'flex' : 'none';
+    const main = document.querySelector('.main');
+    if (main) main.style.opacity = show ? '0.4' : '1';
+  }
+
+  function showError(msg) {
+    const el = document.getElementById('loading-state');
+    if (el) {
+      el.style.display = 'flex';
+      el.innerHTML = `<div style="text-align:center;color:#8B0000"><div style="font-size:24px;margin-bottom:8px">⚠</div><div>${msg}</div><button onclick="initDashboard()" style="margin-top:16px;padding:8px 20px;background:#8B0000;color:white;border:none;cursor:pointer">Retry</button></div>`;
+    }
+  }
+
+  function toggleCard(id) {
+    const body   = document.getElementById('body-' + id);
+    const toggle = document.getElementById('toggle-' + id);
+    body.classList.toggle('open');
+    toggle.classList.toggle('open');
+  }
+
+  function filterCards(type, btn) {
+    document.querySelectorAll('.filter-tab').forEach(t => t.classList.remove('active'));
+    btn.classList.add('active');
+    document.getElementById('action-section').style.display   = type === 'announce' ? 'none' : '';
+    document.getElementById('announce-section').style.display = type === 'action'   ? 'none' : '';
+  }
+
+  // ── INIT ──────────────────────────────────────────────────────────────────────
+  function initDashboard() {
+    document.getElementById('meeting-date-badge').textContent = 'EB Meeting: ' + getNextTuesday();
+    buildMonthSelector();
+    const month = document.getElementById('month-selector')?.value || currentMonth();
+    loadReports(month);
+  }
+</script>
+</body>
+</html>
