@@ -555,6 +555,401 @@
     color: var(--gray-mid);
   }
 
+  /* ── PRINT STYLES ─────────────────────────────────────────── */
+  @media print {
+    body * { visibility: hidden; }
+    #print-view, #print-view * { visibility: visible; }
+    #print-view { position: absolute; inset: 0; }
+  }
+
+  #print-view {
+    display: none;
+    font-family: 'DM Sans', Georgia, serif;
+    color: #111;
+    background: white;
+  }
+
+  .print-cover {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    min-height: 100vh;
+    padding: 80px 72px;
+    border-bottom: none;
+    page-break-after: always;
+  }
+  .print-cover-org {
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: #8B0000;
+    margin-bottom: 12px;
+  }
+  .print-cover-title {
+    font-size: 36px;
+    font-weight: 700;
+    color: #111;
+    line-height: 1.2;
+    margin-bottom: 8px;
+    border-bottom: 4px solid #C9A84C;
+    padding-bottom: 16px;
+    display: inline-block;
+  }
+  .print-cover-meta {
+    font-size: 14px;
+    color: #555;
+    margin-top: 24px;
+    line-height: 2;
+  }
+  .print-cover-stats {
+    display: flex;
+    gap: 40px;
+    margin-top: 40px;
+    padding-top: 32px;
+    border-top: 1px solid #e5e0da;
+  }
+  .print-stat {
+    text-align: center;
+  }
+  .print-stat-num {
+    font-size: 32px;
+    font-weight: 700;
+    color: #8B0000;
+    display: block;
+  }
+  .print-stat-label {
+    font-size: 10px;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    color: #777;
+  }
+
+  .print-section-break {
+    page-break-before: always;
+    padding: 48px 72px 24px;
+  }
+  .print-section-heading {
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: #8B0000;
+    border-bottom: 2px solid #8B0000;
+    padding-bottom: 8px;
+    margin-bottom: 32px;
+  }
+
+  .print-report {
+    padding: 28px 72px;
+    border-bottom: 1px solid #e5e0da;
+  }
+  .print-report-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 12px;
+  }
+  .print-committee {
+    font-size: 18px;
+    font-weight: 700;
+    color: #111;
+  }
+  .print-meta {
+    font-size: 11px;
+    color: #777;
+    margin-top: 3px;
+  }
+  .print-type-badge {
+    font-size: 9px;
+    font-weight: 700;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    padding: 4px 10px;
+    border: 1px solid;
+  }
+  .print-type-action  { color: #8B0000; border-color: #8B0000; background: #fdf2f2; }
+  .print-type-announce{ color: #2e7d32; border-color: #2e7d32; background: #e8f5e9; }
+
+  .print-field-label {
+    font-size: 9px;
+    font-weight: 700;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: #8B0000;
+    margin: 14px 0 5px;
+  }
+  .print-field-content {
+    font-size: 12px;
+    color: #333;
+    line-height: 1.6;
+  }
+  .print-field-content ul {
+    margin: 0;
+    padding-left: 18px;
+  }
+  .print-field-content li { margin-bottom: 3px; }
+
+  .print-budget-row {
+    display: flex;
+    gap: 32px;
+    margin-top: 4px;
+  }
+  .print-budget-item { font-size: 12px; color: #333; }
+  .print-budget-label { font-size: 9px; color: #777; text-transform: uppercase; letter-spacing: 1px; }
+
+  .print-action-highlight {
+    background: #fdf2f2;
+    border-left: 3px solid #8B0000;
+    padding: 10px 14px;
+    margin: 4px 0;
+    font-size: 12px;
+    color: #333;
+  }
+
+  .print-budget-request {
+    background: #fdf3d8;
+    border-left: 3px solid #C9A84C;
+    padding: 10px 14px;
+    margin-top: 6px;
+    font-size: 12px;
+    color: #333;
+  }
+
+  .print-events-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 6px;
+    font-size: 11px;
+  }
+  .print-events-table th {
+    text-align: left;
+    font-size: 9px;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    color: #777;
+    border-bottom: 1px solid #e5e0da;
+    padding: 4px 8px 4px 0;
+  }
+  .print-events-table td {
+    padding: 5px 8px 5px 0;
+    border-bottom: 1px solid #f0ece6;
+    color: #333;
+    vertical-align: top;
+  }
+
+  .print-footer {
+    padding: 24px 72px;
+    border-top: 2px solid #C9A84C;
+    font-size: 10px;
+    color: #999;
+    display: flex;
+    justify-content: space-between;
+  }
+
+  /* Budget summary page */
+  .print-budget-summary {
+    page-break-before: always;
+    padding: 48px 72px;
+  }
+  .print-budget-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 16px;
+    font-size: 12px;
+  }
+  .print-budget-table th {
+    background: #8B0000;
+    color: white;
+    padding: 8px 12px;
+    text-align: left;
+    font-size: 10px;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+  }
+  .print-budget-table td {
+    padding: 8px 12px;
+    border-bottom: 1px solid #e5e0da;
+    vertical-align: top;
+  }
+  .print-budget-table tr:nth-child(even) td { background: #fafaf8; }
+  .print-budget-table .amount { font-weight: 700; color: #8B0000; }
+
+  /* Events summary page */
+  .print-events-summary {
+    page-break-before: always;
+    padding: 48px 72px;
+  }
+
+  /* Recognition */
+  .print-recognition {
+    background: #f8f0f0;
+    padding: 10px 14px;
+    font-size: 12px;
+    color: #333;
+    border-left: 3px solid #C9A84C;
+    margin-top: 4px;
+  }
+  .view-tabs {
+    display: flex;
+    gap: 0;
+    margin-left: 20px;
+  }
+  .view-tab {
+    padding: 6px 18px;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    cursor: pointer;
+    border: 1px solid rgba(255,255,255,0.3);
+    background: transparent;
+    color: rgba(255,255,255,0.6);
+    transition: all 0.2s;
+  }
+  .view-tab:first-child { border-right: none; }
+  .view-tab.active {
+    background: rgba(255,255,255,0.15);
+    color: white;
+    border-color: rgba(255,255,255,0.5);
+  }
+  .view-tab:hover:not(.active) { color: rgba(255,255,255,0.85); }
+
+  #flyer-screen {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: #111;
+    z-index: 200;
+    flex-direction: column;
+  }
+  #flyer-screen.active { display: flex; }
+
+  .flyer-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 16px 28px;
+    background: var(--crimson);
+    border-bottom: 3px solid var(--gold);
+    flex-shrink: 0;
+  }
+  .flyer-header-left {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    color: white;
+  }
+  .flyer-chapter {
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--gold);
+  }
+  .flyer-title {
+    font-size: 14px;
+    color: rgba(255,255,255,0.9);
+    font-weight: 500;
+  }
+  .flyer-counter {
+    font-size: 12px;
+    color: rgba(255,255,255,0.5);
+    font-family: monospace;
+  }
+  .flyer-close-btn {
+    background: rgba(255,255,255,0.12);
+    border: 1px solid rgba(255,255,255,0.25);
+    color: white;
+    padding: 6px 18px;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    cursor: pointer;
+  }
+
+  .flyer-body {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .flyer-frame {
+    width: 100%;
+    height: 100%;
+    border: none;
+    background: white;
+  }
+
+  .flyer-nav {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background: rgba(0,0,0,0.5);
+    border: none;
+    color: white;
+    font-size: 28px;
+    padding: 16px 20px;
+    cursor: pointer;
+    z-index: 10;
+    transition: background 0.2s;
+    line-height: 1;
+  }
+  .flyer-nav:hover { background: rgba(139,0,0,0.75); }
+  .flyer-nav.prev { left: 0; }
+  .flyer-nav.next { right: 0; }
+  .flyer-nav:disabled { opacity: 0.2; cursor: default; }
+
+  .flyer-footer {
+    background: #1a1a1a;
+    border-top: 2px solid var(--gold);
+    padding: 12px 28px;
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    flex-shrink: 0;
+    overflow-x: auto;
+  }
+  .flyer-thumb {
+    flex-shrink: 0;
+    padding: 6px 14px;
+    background: #2a2a2a;
+    border: 1px solid #444;
+    color: rgba(255,255,255,0.6);
+    font-size: 11px;
+    cursor: pointer;
+    white-space: nowrap;
+    transition: all 0.2s;
+    font-family: 'DM Sans', sans-serif;
+  }
+  .flyer-thumb.active {
+    background: var(--crimson);
+    border-color: var(--gold);
+    color: white;
+  }
+  .flyer-thumb:hover:not(.active) {
+    background: #333;
+    color: white;
+  }
+
+  .flyer-empty {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+    color: rgba(255,255,255,0.3);
+    gap: 12px;
+  }
+  .flyer-empty-icon { font-size: 48px; }
+  .flyer-empty-text { font-size: 14px; letter-spacing: 1px; }
+
   @media (max-width: 768px) {
     .header { padding: 0 20px; }
     .summary-bar { padding: 14px 20px; flex-wrap: wrap; gap: 16px; }
@@ -566,6 +961,9 @@
 </style>
 </head>
 <body>
+
+<!-- PRINT VIEW -->
+<div id="print-view"></div>
 
 <!-- LOGIN SCREEN -->
 <div id="login-screen">
@@ -589,11 +987,40 @@
       <span class="header-greek" style="font-size:13px;letter-spacing:1px">Lumberton Alumnae Chapter</span>
       <div class="header-divider"></div>
       <span class="header-title">Committee Reports</span>
+      <div class="view-tabs">
+        <button class="view-tab active" id="tab-reports" onclick="switchView('reports')">Reports</button>
+        <button class="view-tab" id="tab-flyers" onclick="switchView('flyers')">Flyer Screen</button>
+      </div>
     </div>
     <div class="header-right">
       <div class="meeting-badge" id="meeting-date-badge">Loading date...</div>
+      <button class="logout-btn" style="color:rgba(255,255,255,0.75);border:1px solid rgba(255,255,255,0.25);padding:5px 14px;margin-right:4px" onclick="printReport()">Print Report</button>
       <button class="logout-btn" onclick="logout()">Sign Out</button>
     </div>
+  </div>
+
+  <!-- FLYER SCREEN -->
+  <div id="flyer-screen">
+    <div class="flyer-header">
+      <div class="flyer-header-left">
+        <div>
+          <div class="flyer-chapter">Lumberton Alumnae Chapter · Delta Sigma Theta Sorority, Inc.</div>
+          <div class="flyer-title" id="flyer-event-name">Chapter Meeting — Upcoming Events</div>
+        </div>
+        <div class="flyer-counter" id="flyer-counter"></div>
+      </div>
+      <button class="flyer-close-btn" onclick="switchView('reports')">← Back to Reports</button>
+    </div>
+    <div class="flyer-body" id="flyer-body">
+      <div class="flyer-empty" id="flyer-empty">
+        <div class="flyer-empty-icon">🖼</div>
+        <div class="flyer-empty-text">No flyers submitted for this cycle</div>
+      </div>
+      <button class="flyer-nav prev" id="flyer-prev" onclick="flyerNav(-1)" style="display:none">&#8249;</button>
+      <iframe class="flyer-frame" id="flyer-frame" style="display:none" allowfullscreen></iframe>
+      <button class="flyer-nav next" id="flyer-next" onclick="flyerNav(1)" style="display:none">&#8250;</button>
+    </div>
+    <div class="flyer-footer" id="flyer-footer" style="display:none"></div>
   </div>
 
   <div class="summary-bar">
@@ -662,16 +1089,18 @@
   const PASSWORD    = "LAC2025EB";
   const SCRIPT_URL  = 'https://script.google.com/macros/s/AKfycbxS4tyZsciDyxeFWI8fD-3mOGWVFL3I3866UFehf_z05iEilXxfBZwDJ1XPygPLxP8W/exec';
 
-  // Current loaded reports
+  const SESSION_KEY     = 'lac_eb_session';
+  const SESSION_HOURS   = 8;
   let allReports = [];
 
   // ── AUTH ──────────────────────────────────────────────────────────────────────
   function tryLogin() {
     const val = document.getElementById('pw-input').value;
     if (val === PASSWORD) {
-      document.getElementById('login-screen').style.display = 'none';
-      document.getElementById('dashboard').style.display = 'block';
-      initDashboard();
+      // Store session with expiry
+      const expiry = Date.now() + (SESSION_HOURS * 60 * 60 * 1000);
+      sessionStorage.setItem(SESSION_KEY, JSON.stringify({ expiry }));
+      showDashboard();
     } else {
       const err = document.getElementById('login-error');
       err.textContent = 'Incorrect password. Please try again.';
@@ -680,11 +1109,36 @@
     }
   }
 
+  function checkSession() {
+    try {
+      const stored = sessionStorage.getItem(SESSION_KEY);
+      if (!stored) return false;
+      const { expiry } = JSON.parse(stored);
+      if (Date.now() > expiry) {
+        sessionStorage.removeItem(SESSION_KEY);
+        return false;
+      }
+      return true;
+    } catch { return false; }
+  }
+
+  function showDashboard() {
+    document.getElementById('login-screen').style.display = 'none';
+    document.getElementById('dashboard').style.display = 'block';
+    initDashboard();
+  }
+
   function logout() {
+    sessionStorage.removeItem(SESSION_KEY);
     document.getElementById('login-screen').style.display = 'flex';
     document.getElementById('dashboard').style.display = 'none';
     document.getElementById('pw-input').value = '';
   }
+
+  // Auto-login if session is still valid
+  window.addEventListener('DOMContentLoaded', () => {
+    if (checkSession()) showDashboard();
+  });
 
   // ── DATES ─────────────────────────────────────────────────────────────────────
   function getNextTuesday() {
@@ -1062,6 +1516,330 @@
     const month = document.getElementById('month-selector')?.value || currentMonth();
     const year  = document.getElementById('year-selector')?.value  || currentProgramYear();
     loadReports(month, year);
+  }
+
+  // ── PRINT REPORT ─────────────────────────────────────────────────────────────
+  function printReport() {
+    if (!allReports.length) {
+      alert('No reports loaded. Please load reports for a month first.');
+      return;
+    }
+
+    const month       = document.getElementById('month-selector')?.value || currentMonth();
+    const programYear = document.getElementById('year-selector')?.value  || currentProgramYear();
+    const ebDate      = getNextTuesday();
+    const generated   = new Date().toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' });
+
+    const actionReports   = allReports.filter(r => r.type === 'action');
+    const announceReports = allReports.filter(r => r.type === 'announce');
+    const budgetReports   = allReports.filter(r => r.budgetRequest);
+    const eventReports    = allReports.filter(r => r.upcomingEvents.length > 0);
+    const recognitionList = allReports.filter(r => r.recognition);
+
+    // ── Cover Page ──────────────────────────────────────────────────────────────
+    let html = `
+    <div class="print-cover">
+      <div class="print-cover-org">Lumberton Alumnae Chapter · Delta Sigma Theta Sorority, Inc.</div>
+      <div class="print-cover-title">Executive Board<br>Committee Reports</div>
+      <div class="print-cover-meta">
+        <strong>Reporting Month:</strong> ${month} ${programYear}<br>
+        <strong>EB Meeting:</strong> ${ebDate}<br>
+        <strong>Generated:</strong> ${generated}
+      </div>
+      <div class="print-cover-stats">
+        <div class="print-stat">
+          <span class="print-stat-num">${allReports.length}</span>
+          <span class="print-stat-label">Reports Submitted</span>
+        </div>
+        <div class="print-stat">
+          <span class="print-stat-num" style="color:#8B0000">${actionReports.length}</span>
+          <span class="print-stat-label">Require Board Action</span>
+        </div>
+        <div class="print-stat">
+          <span class="print-stat-num" style="color:#7a5c00">${budgetReports.length}</span>
+          <span class="print-stat-label">Budget Requests</span>
+        </div>
+        <div class="print-stat">
+          <span class="print-stat-num" style="color:#2e7d32">${announceReports.length}</span>
+          <span class="print-stat-label">Announcements</span>
+        </div>
+      </div>
+    </div>`;
+
+    // ── Action Items Section ─────────────────────────────────────────────────────
+    if (actionReports.length > 0) {
+      html += `<div class="print-section-break">
+        <div class="print-section-heading">Action Items — Requiring Board Vote or Discussion</div>
+      </div>`;
+      actionReports.forEach(r => { html += buildPrintReport(r); });
+    }
+
+    // ── Announcements Section ────────────────────────────────────────────────────
+    if (announceReports.length > 0) {
+      html += `<div class="print-section-break">
+        <div class="print-section-heading">Announcements — For Board Awareness</div>
+      </div>`;
+      announceReports.forEach(r => { html += buildPrintReport(r); });
+    }
+
+    // ── Budget Summary Page ──────────────────────────────────────────────────────
+    if (budgetReports.length > 0) {
+      html += `<div class="print-budget-summary">
+        <div class="print-section-heading">Budget Requests Summary</div>
+        <table class="print-budget-table">
+          <thead>
+            <tr>
+              <th>Committee</th>
+              <th>Amount Requested</th>
+              <th>Date Needed</th>
+              <th>Purpose</th>
+            </tr>
+          </thead>
+          <tbody>
+            ${budgetReports.map(r => `
+            <tr>
+              <td><strong>${r.committee}</strong></td>
+              <td class="amount">${r.budgetRequest.amount}</td>
+              <td>${r.requestDate || '—'}</td>
+              <td>${r.budgetRequest.purpose}</td>
+            </tr>`).join('')}
+          </tbody>
+        </table>
+      </div>`;
+    }
+
+    // ── Upcoming Events Summary ──────────────────────────────────────────────────
+    if (eventReports.length > 0) {
+      html += `<div class="print-events-summary">
+        <div class="print-section-heading">Upcoming Events</div>
+        <table class="print-events-table" style="width:100%;border-collapse:collapse;margin-top:16px;font-size:12px">
+          <thead>
+            <tr>
+              <th style="background:#8B0000;color:white;padding:8px 12px;text-align:left;font-size:10px;letter-spacing:1px;text-transform:uppercase">Committee</th>
+              <th style="background:#8B0000;color:white;padding:8px 12px;text-align:left;font-size:10px;letter-spacing:1px;text-transform:uppercase">Event</th>
+              <th style="background:#8B0000;color:white;padding:8px 12px;text-align:left;font-size:10px;letter-spacing:1px;text-transform:uppercase">Date</th>
+              <th style="background:#8B0000;color:white;padding:8px 12px;text-align:left;font-size:10px;letter-spacing:1px;text-transform:uppercase">Time</th>
+              <th style="background:#8B0000;color:white;padding:8px 12px;text-align:left;font-size:10px;letter-spacing:1px;text-transform:uppercase">Location</th>
+            </tr>
+          </thead>
+          <tbody>
+            ${eventReports.flatMap(r => r.upcomingEvents.map((ev, i) => {
+              const parts = ev.split(' — ');
+              const name  = parts[0] || ev;
+              const rest  = (parts[1] || '').split(' @ ');
+              const date  = rest[0] || '';
+              const timeAndLoc = (rest[1] || '').split(', ');
+              const time  = timeAndLoc[0] || '';
+              const loc   = timeAndLoc.slice(1).join(', ') || '';
+              return `<tr>
+                <td style="padding:8px 12px;border-bottom:1px solid #e5e0da">${i === 0 ? '<strong>' + r.committee + '</strong>' : ''}</td>
+                <td style="padding:8px 12px;border-bottom:1px solid #e5e0da">${name}</td>
+                <td style="padding:8px 12px;border-bottom:1px solid #e5e0da">${date}</td>
+                <td style="padding:8px 12px;border-bottom:1px solid #e5e0da">${time}</td>
+                <td style="padding:8px 12px;border-bottom:1px solid #e5e0da">${loc}</td>
+              </tr>`;
+            })).join('')}
+          </tbody>
+        </table>
+      </div>`;
+    }
+
+    // ── Member Recognition ───────────────────────────────────────────────────────
+    if (recognitionList.length > 0) {
+      html += `<div class="print-events-summary">
+        <div class="print-section-heading">Member Recognition</div>
+        ${recognitionList.map(r => `
+        <div style="margin-bottom:12px">
+          <div style="font-size:10px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:#777;margin-bottom:3px">${r.committee}</div>
+          <div class="print-recognition">${r.recognition}</div>
+        </div>`).join('')}
+      </div>`;
+    }
+
+    // ── Footer ───────────────────────────────────────────────────────────────────
+    html += `<div class="print-footer">
+      <span>Lumberton Alumnae Chapter · Delta Sigma Theta Sorority, Inc.</span>
+      <span>Confidential — Executive Board Use Only · Generated ${generated}</span>
+    </div>`;
+
+    const printView = document.getElementById('print-view');
+    printView.innerHTML = html;
+    printView.style.display = 'block';
+    window.print();
+    printView.style.display = 'none';
+  }
+
+  function buildPrintReport(r) {
+    const activityHTML = r.activityItems.length > 0 ? `
+      <div class="print-field-label">Activity Summary</div>
+      <div class="print-field-content">
+        <ul>${r.activityItems.map(a => `<li>${a}</li>`).join('')}</ul>
+      </div>` : '';
+
+    const actionHTML = r.actionItems.length > 0 ? `
+      <div class="print-field-label">Items Requiring Board Action</div>
+      ${r.actionItems.map(a => `<div class="print-action-highlight">${a}</div>`).join('')}` : '';
+
+    const followUpHTML = r.previousFollowUp ? `
+      <div class="print-field-label">Previous Action Item Follow-Up</div>
+      <div class="print-field-content">${r.previousFollowUp}</div>` : '';
+
+    const budgetHTML = r.budget ? `
+      <div class="print-field-label">Budget Status</div>
+      <div class="print-budget-row">
+        <div class="print-budget-item"><div class="print-budget-label">Approved</div>${r.budget.approved}</div>
+        <div class="print-budget-item"><div class="print-budget-label">Available</div>${r.budget.available}</div>
+      </div>
+      ${r.budgetRequest ? `<div class="print-budget-request"><strong>Budget Request: </strong>${r.budgetRequest.amount} — ${r.budgetRequest.purpose}</div>` : ''}` : '';
+
+    const eventsHTML = r.upcomingEvents.length > 0 ? `
+      <div class="print-field-label">Upcoming Events</div>
+      <div class="print-field-content">
+        <ul>${r.upcomingEvents.map(e => `<li>${e}</li>`).join('')}</ul>
+      </div>` : '';
+
+    const supportHTML = r.support ? `
+      <div class="print-field-label">Support Requested from Board</div>
+      <div class="print-field-content">${r.support}</div>` : '';
+
+    const recognitionHTML = r.recognition ? `
+      <div class="print-field-label">Member Recognition</div>
+      <div class="print-recognition">${r.recognition}</div>` : '';
+
+    return `
+    <div class="print-report">
+      <div class="print-report-header">
+        <div>
+          <div class="print-committee">${r.committee}</div>
+          <div class="print-meta">Chair: ${r.chair} &nbsp;·&nbsp; Meeting Date: ${r.submitted}</div>
+        </div>
+        <div class="print-type-badge ${r.type === 'action' ? 'print-type-action' : 'print-type-announce'}">
+          ${r.type === 'action' ? 'Action Items' : 'Announcement Only'}
+        </div>
+      </div>
+      ${activityHTML}
+      ${actionHTML}
+      ${followUpHTML}
+      ${budgetHTML}
+      ${eventsHTML}
+      ${supportHTML}
+      ${recognitionHTML}
+    </div>`;
+  }
+  function switchView(view) {
+    const flyerScreen  = document.getElementById('flyer-screen');
+    const tabReports   = document.getElementById('tab-reports');
+    const tabFlyers    = document.getElementById('tab-flyers');
+
+    if (view === 'flyers') {
+      flyerScreen.classList.add('active');
+      tabFlyers.classList.add('active');
+      tabReports.classList.remove('active');
+      initFlyerScreen();
+    } else {
+      flyerScreen.classList.remove('active');
+      tabReports.classList.add('active');
+      tabFlyers.classList.remove('active');
+    }
+  }
+
+  // ── FLYER SCREEN ──────────────────────────────────────────────────────────────
+  let flyerIndex = 0;
+  let flyers     = [];
+
+  function initFlyerScreen() {
+    // Collect all reports that have a flyer link
+    flyers = allReports
+      .filter(r => r.flyerLink)
+      .map(r => ({
+        name:      r.flyerName || r.committee,
+        committee: r.committee,
+        link:      convertFlyerLink(r.flyerLink),
+        type:      r.flyerLink.includes('canva') ? 'canva' : 'drive',
+      }));
+
+    const empty  = document.getElementById('flyer-empty');
+    const frame  = document.getElementById('flyer-frame');
+    const prev   = document.getElementById('flyer-prev');
+    const next   = document.getElementById('flyer-next');
+    const footer = document.getElementById('flyer-footer');
+
+    if (flyers.length === 0) {
+      empty.style.display  = 'flex';
+      frame.style.display  = 'none';
+      prev.style.display   = 'none';
+      next.style.display   = 'none';
+      footer.style.display = 'none';
+      document.getElementById('flyer-counter').textContent = '';
+      return;
+    }
+
+    empty.style.display  = 'none';
+    frame.style.display  = 'block';
+    footer.style.display = 'flex';
+    if (flyers.length > 1) {
+      prev.style.display = 'block';
+      next.style.display = 'block';
+    }
+
+    flyerIndex = 0;
+    renderFlyer();
+    buildFlyerThumbs();
+  }
+
+  function convertFlyerLink(link) {
+    // Convert Google Drive sharing links to direct embed URLs
+    if (link.includes('drive.google.com/file/d/')) {
+      const match = link.match(/\/file\/d\/([^/]+)/);
+      if (match) return `https://drive.google.com/file/d/${match[1]}/preview`;
+    }
+    // Convert Google Drive open links
+    if (link.includes('drive.google.com/open?id=')) {
+      const id = link.split('id=')[1].split('&')[0];
+      return `https://drive.google.com/file/d/${id}/preview`;
+    }
+    // Canva links — use as-is (they embed well in iframes)
+    return link;
+  }
+
+  function renderFlyer() {
+    const f     = flyers[flyerIndex];
+    const frame = document.getElementById('flyer-frame');
+    const prev  = document.getElementById('flyer-prev');
+    const next  = document.getElementById('flyer-next');
+
+    frame.src = f.link;
+    document.getElementById('flyer-event-name').textContent = f.name;
+    document.getElementById('flyer-counter').textContent =
+      `${flyerIndex + 1} of ${flyers.length}`;
+
+    prev.disabled = flyerIndex === 0;
+    next.disabled = flyerIndex === flyers.length - 1;
+
+    // Update thumb highlights
+    document.querySelectorAll('.flyer-thumb').forEach((el, i) => {
+      el.classList.toggle('active', i === flyerIndex);
+    });
+  }
+
+  function buildFlyerThumbs() {
+    const footer = document.getElementById('flyer-footer');
+    footer.innerHTML = flyers.map((f, i) => `
+      <div class="flyer-thumb ${i === 0 ? 'active' : ''}" onclick="goToFlyer(${i})">
+        <div style="font-size:10px;color:var(--gold);margin-bottom:2px">${f.committee}</div>
+        <div>${f.name}</div>
+      </div>
+    `).join('');
+  }
+
+  function flyerNav(dir) {
+    flyerIndex = Math.max(0, Math.min(flyers.length - 1, flyerIndex + dir));
+    renderFlyer();
+  }
+
+  function goToFlyer(index) {
+    flyerIndex = index;
+    renderFlyer();
   }
 </script>
 </body>
