@@ -994,6 +994,7 @@
     </div>
     <div class="header-right">
       <div class="meeting-badge" id="meeting-date-badge">Loading date...</div>
+      <button class="logout-btn" style="color:rgba(255,255,255,0.75);border:1px solid rgba(255,255,255,0.25);padding:5px 14px;margin-right:4px" onclick="generateChapterAgenda()">Chapter Agenda</button>
       <button class="logout-btn" style="color:rgba(255,255,255,0.75);border:1px solid rgba(255,255,255,0.25);padding:5px 14px;margin-right:4px" onclick="printReport()">Print Report</button>
       <button class="logout-btn" onclick="logout()">Sign Out</button>
     </div>
@@ -1087,7 +1088,7 @@
 
 <script>
   const PASSWORD    = "LAC2025EB";
-  const SCRIPT_URL  = 'https://script.google.com/macros/s/AKfycbwEV4KEup25PVYTYbDA8O1UaIXZiEyJeibnFhXXKiw1BXGKtT3QqrGmSrNLthPSSgJp/exec';
+  const SCRIPT_URL  = 'https://script.google.com/macros/s/AKfycbxS4tyZsciDyxeFWI8fD-3mOGWVFL3I3866UFehf_z05iEilXxfBZwDJ1XPygPLxP8W/exec';
 
   const SESSION_KEY     = 'lac_eb_session';
   const SESSION_HOURS   = 8;
@@ -1746,6 +1747,48 @@
       ${recognitionHTML}
     </div>`;
   }
+
+  // ── GENERATE CHAPTER AGENDA (calls Apps Script) ───────────────────────────────
+  function generateChapterAgenda() {
+    const btn = event.target;
+    btn.textContent = 'Generating...';
+    btn.disabled = true;
+
+    const callbackName = 'agendaCallback_' + Date.now();
+    const script = document.createElement('script');
+    const timeout = setTimeout(() => {
+      delete window[callbackName];
+      if (document.body.contains(script)) document.body.removeChild(script);
+      btn.textContent = 'Chapter Agenda';
+      btn.disabled = false;
+      alert('Request timed out. Please try again.');
+    }, 30000);
+
+    window[callbackName] = function(json) {
+      clearTimeout(timeout);
+      delete window[callbackName];
+      if (document.body.contains(script)) document.body.removeChild(script);
+      btn.textContent = 'Chapter Agenda';
+      btn.disabled = false;
+      if (json.success) {
+        alert('Chapter agenda generated and emailed successfully.');
+      } else {
+        alert('Error: ' + (json.error || 'Check Apps Script logs.'));
+      }
+    };
+
+    script.src = `${SCRIPT_URL}?action=generateChapterAgenda&callback=${callbackName}`;
+    script.onerror = () => {
+      clearTimeout(timeout);
+      delete window[callbackName];
+      if (document.body.contains(script)) document.body.removeChild(script);
+      btn.textContent = 'Chapter Agenda';
+      btn.disabled = false;
+      alert('Connection error. Please try again.');
+    };
+    document.body.appendChild(script);
+  }
+
   function switchView(view) {
     const flyerScreen  = document.getElementById('flyer-screen');
     const tabReports   = document.getElementById('tab-reports');
