@@ -1233,27 +1233,47 @@
     });
   }
 
-  // ── LOAD REPORTS FROM APPS SCRIPT ────────────────────────────────────────────
+  // ── LOAD REPORTS FROM APPS SCRIPT (JSONP) ────────────────────────────────────
   async function loadReports(month, programYear) {
     showLoading(true);
     const calYear = programYearForMonth(month, programYear || currentProgramYear());
-    try {
-      const url      = `${SCRIPT_URL}?action=getReports&month=${encodeURIComponent(month)}&year=${calYear}`;
-      const response = await fetch(url);
-      const json     = await response.json();
+    return new Promise((resolve) => {
+      const callbackName = 'lacCallback_' + Date.now();
+      const script = document.createElement('script');
+      const timeout = setTimeout(() => {
+        delete window[callbackName];
+        document.body.removeChild(script);
+        showLoading(false);
+        showError('Connection timed out. Please check your connection and try again.');
+        resolve();
+      }, 15000);
 
-      if (json.success) {
-        allReports = json.reports.map(normalizeReport);
-        renderDashboard(allReports, month, programYear);
-      } else {
-        showError('Could not load reports. Please refresh the page.');
-      }
-    } catch (err) {
-      showError('Connection error. Check your internet connection and try again.');
-      console.error(err);
-    } finally {
-      showLoading(false);
-    }
+      window[callbackName] = function(json) {
+        clearTimeout(timeout);
+        delete window[callbackName];
+        document.body.removeChild(script);
+        showLoading(false);
+        if (json.success) {
+          allReports = json.reports.map(normalizeReport);
+          renderDashboard(allReports);
+        } else {
+          showError('Could not load reports. Please refresh the page.');
+        }
+        resolve();
+      };
+
+      const url = `${SCRIPT_URL}?action=getReports&month=${encodeURIComponent(month)}&year=${calYear}&callback=${callbackName}`;
+      script.src = url;
+      script.onerror = () => {
+        clearTimeout(timeout);
+        delete window[callbackName];
+        document.body.removeChild(script);
+        showLoading(false);
+        showError('Connection error. Check your internet connection and try again.');
+        resolve();
+      };
+      document.body.appendChild(script);
+    });
   }
 
   // ── NORMALIZE — map Apps Script fields to dashboard card format ───────────────
