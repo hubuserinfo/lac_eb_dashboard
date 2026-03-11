@@ -1278,6 +1278,32 @@
   }
 
   // ── NORMALIZE — map Apps Script fields to dashboard card format ───────────────
+  function formatSheetDate(val) {
+    if (!val) return '';
+    // Handle ISO strings from Google Sheets date serialization
+    const d = new Date(val);
+    if (isNaN(d.getTime())) return val; // return as-is if not parseable
+    // Ignore the epoch default date (1899-12-30) which Sheets uses for time-only values
+    if (d.getFullYear() < 1970) return '';
+    return d.toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' });
+  }
+
+  function formatSheetTime(val) {
+    if (!val) return '';
+    const d = new Date(val);
+    if (isNaN(d.getTime())) return val;
+    // Time-only values from Sheets come as 1899-12-30T... — extract just the time
+    return d.toLocaleTimeString('en-US', { hour: 'numeric', minute: '2-digit', hour12: true });
+  }
+
+  function cleanField(val) {
+    if (!val) return '';
+    const s = val.toString().trim();
+    // Suppress generic placeholder values
+    if (['none', 'n/a', 'na', '-'].includes(s.toLowerCase())) return '';
+    return s;
+  }
+
   function normalizeReport(r) {
     const isAction      = r.reportType === 'action';
     const hasBudgetReq  = r.budgetRequest === 'Yes' && r.requestAmount;
@@ -1297,12 +1323,14 @@
       : [];
 
     const upcomingEvents = (r.events || []).map(ev => {
-      let str = ev.name;
-      if (ev.date)     str += ` — ${ev.date}`;
-      if (ev.time)     str += ` @ ${ev.time}`;
+      let str = ev.name || '';
+      const date = formatSheetDate(ev.date);
+      const time = formatSheetTime(ev.time);
+      if (date)     str += ` — ${date}`;
+      if (time)     str += ` @ ${time}`;
       if (ev.location) str += `, ${ev.location}`;
       return str;
-    });
+    }).filter(Boolean);
 
     const ts = r.timestamp ? new Date(r.timestamp).toLocaleDateString('en-US', {
       weekday: 'long', month: 'long', day: 'numeric', year: 'numeric'
@@ -1319,7 +1347,7 @@
       summary:       activityItems.join(' · '),
       activityItems,
       actionItems,
-      previousFollowUp: r.previousFollowUp || '',
+      previousFollowUp: cleanField(r.previousFollowUp),
       budget: (r.budgetApproved || r.budgetAvailable) ? {
         approved:  r.budgetApproved  ? '$' + Number(r.budgetApproved).toLocaleString()  : '—',
         available: r.budgetAvailable ? '$' + Number(r.budgetAvailable).toLocaleString() : '—',
@@ -1329,9 +1357,9 @@
         purpose: r.requestPurpose || ''
       } : null,
       upcomingEvents,
-      support:       r.ebSupport     || '',
-      engagement:    r.memberEngagement || '',
-      recognition:   r.memberRecognition || '',
+      support:       cleanField(r.ebSupport),
+      engagement:    cleanField(r.memberEngagement),
+      recognition:   cleanField(r.memberRecognition),
       ebDecision:    r.ebDecision    || 'Pending',
       flyerLink:     r.flyerLink     || '',
       flyerName:     r.flyerName     || '',
@@ -1686,7 +1714,10 @@
     const printView = document.getElementById('print-view');
     printView.innerHTML = html;
     printView.style.display = 'block';
+    const originalTitle = document.title;
+    document.title = `LAC EB Committee Reports — ${month} ${programYear}`;
     window.print();
+    document.title = originalTitle;
     printView.style.display = 'none';
   }
 
